@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+   <!-- Base da definição -->
+   <definition name="wpp.main" path="/WEB-INF/jsp/common/layout.jsp">
+        <put name="title"      value="WebserverApp" />
+        <put name="header"     value="/WEB-INF/jsp/common/ne_cabecalho.jsp" />
+        <put name="footer"     value="/WEB-INF/jsp/common/ne_rodape.jsp" />
+        <put name="body"       value="/WEB-INF/jsp/common/blank.jsp" />
+    </definition>
+
+	<!--Chamada da view do login  -->
+    <definition name="login" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/login.jsp"/>
+    </definition>
+    
+    <!--Chamada da view home  -->
+    <definition name="home" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/home.jsp"/>
+    </definition>
+    
+    <!--Chamada da view do cadastro -->
+    <definition name="cadastrarEstabelecimento" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/cadastrarEstabelecimento.jsp"/>
+    </definition>
+
+    <!--Chamada da view do contato -->
+    <definition name="contato" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/contato.jsp"/>
+    </definition>
+    
+    <!--Chamada da view gerenciar estabelecimento -->
+    <definition name="gerenciarEstabelecimento" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/gerenciarEstabelecimento.jsp"/>
+    </definition>
+    
+    <!--Chamada da view de adicionar fotos -->
+    <definition name="adicionarFotosEstabelecimento" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/adicionarFotosEstabelecimento.jsp"/>
+    </definition>
+    
+    <!--Chamada da view de adicionar fotos -->
+    <definition name="cadastrarEstabelecimentoRatifica" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/cadastrarEstabelecimentoRatifica.jsp"/>
+    </definition>
+</tiles-definitions>
