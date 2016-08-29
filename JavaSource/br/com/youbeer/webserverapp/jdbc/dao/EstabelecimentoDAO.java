@@ -124,7 +124,8 @@ public class EstabelecimentoDAO {
 			List<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
 			PreparedStatement stmt = this.connection
 					.prepareStatement("select * from estabelecimento where cod_admin = ?");
-			stmt.setInt(1, (int) session.getAttribute("cod_admin"));
+			//TODO
+			//stmt.setInt(1, (int) session.getAttribute("cod_admin"));
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

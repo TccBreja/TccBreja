@@ -47,4 +47,14 @@
     <definition name="cadastrarEstabelecimentoRatifica" extends="wpp.main">
 		<put name="body" value="/WEB-INF/jsp/cadastrarEstabelecimentoRatifica.jsp"/>
     </definition>
+    
+    <!--Chamada da view de cadastrar Cervejas -->
+    <definition name="cadastrarCervejas" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/cadastrarCervejas.jsp"/>
+    </definition>
+    
+    <!--Chamada da view de cadastrar Cervejas -->
+    <definition name="atualizarEstabelecimento" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/atualizarEstabelecimento.jsp"/>
+    </definition>
 </tiles-definitions>

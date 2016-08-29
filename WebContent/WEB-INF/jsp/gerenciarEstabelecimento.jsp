@@ -16,7 +16,7 @@ background-color: #df8e01!important;
   </a>
   <logic:iterate id="listaEstabelecimentos" name="listaEstabelecimentos">
   
-    <a href="#" class="list-group-item">
+    <a href="#" class="list-group-item" onclick="submitForm(<bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/>)">
 	  <div class="row">
 		  <div class="col-md-4">
 			<img src="<bean:write name="listaEstabelecimentos" property="fotoUm"/>" alt="100%x180" style="height: 180px; width: 100%; display: block;">
@@ -42,3 +42,14 @@ background-color: #df8e01!important;
 </div>
 	</div>
 </div>
+<script>
+function submitForm(codigoEstabelecimento){
+	$("#codigoEstabelecimento").val(codigoEstabelecimento);
+	$("#cadastrarCervejasForm").submit();
+}
+</script>
+<form id="cadastrarCervejasForm" name="cadastrarCervejasForm" action="cadastrarCervejas.do">
+	<input type='hidden' name=codigoEstabelecimento id="codigoEstabelecimento" value=""/>
+	<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
+	<input type='hidden' name="controleCerveja" id="controleCerveja" value="cadastrarCervejas"/>
+</form>

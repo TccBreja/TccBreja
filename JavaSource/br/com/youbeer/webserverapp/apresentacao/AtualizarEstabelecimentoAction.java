@@ -1,8 +1,5 @@
 package br.com.youbeer.webserverapp.apresentacao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,14 +9,10 @@ import org.apache.struts.action.ActionMapping;
 
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
 
-public class GerenciarEstabelecimentoAction extends ActionBase{
+public class AtualizarEstabelecimentoAction extends ActionBase{
 
 	@Override
 	protected ActionForward executar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
-		
-		/**Metodo mockado da implementação da view do estabelecimento*/
-		
-		List<Estabelecimento> estabelecimentos = new ArrayList<Estabelecimento>();
 		
 		Estabelecimento estabelecimento1 = new Estabelecimento();
 		estabelecimento1.setNomeEstabelecimento("Teste Um");
@@ -34,23 +27,7 @@ public class GerenciarEstabelecimentoAction extends ActionBase{
 		estabelecimento1.setTipoEstabelecimento("Bar");
 		estabelecimento1.setCodigoEstabelecimento(1);
 		
-		Estabelecimento estabelecimento2 = new Estabelecimento();
-		estabelecimento2.setNomeEstabelecimento("Teste Dois");
-		estabelecimento2.setDescricao("É verão o ano todo vem cumpadi. Eita porra!, tá saindo da jaula o monstro! Birl! "  
-				+ "Aqui nóis constrói fibra, não é água com músculo. Negativa Bambam negativa. É esse que a gente quer, é ele que nóis vamo buscar.");
-		estabelecimento2.setEndereco("Rua y, numero 09");
-		estabelecimento2.setHorarioAbertura("05:30");
-		estabelecimento2.setHorarioFechamento("02:30");
-		estabelecimento2.setSite("www.testedois.com.br");
-		estabelecimento2.setTelefone("(11) 8888-9999");
-		estabelecimento2.setFotoUm("estaticos/imagens/bar_exemplo.jpg");
-		estabelecimento2.setTipoEstabelecimento("Mercado");
-		estabelecimento2.setCodigoEstabelecimento(2);
-		
-		estabelecimentos.add(estabelecimento1);
-		estabelecimentos.add(estabelecimento2);
-		
-		request.setAttribute("listaEstabelecimentos", estabelecimentos);
+		request.setAttribute("estabelecimento", estabelecimento1);
 		
 		return mapping.findForward("sucesso");
 	}

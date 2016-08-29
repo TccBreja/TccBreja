@@ -71,6 +71,24 @@
                 validate="false">
             <forward name="sucesso" path="cadastrarEstabelecimentoRatifica" />
         </action>
+        
+        <!-- Action cadastrar cervejas -->
+    	<action path="/cadastrarCervejas"
+                type="br.com.youbeer.webserverapp.apresentacao.CadastrarCervejasAction"
+                name="HomeAction"
+                scope="request"
+                validate="false">
+            <forward name="sucesso" path="cadastrarCervejas" />
+        </action>
+        
+         <!-- Action atualizar estabelecimento -->
+    	<action path="/atualizarEstabelecimento"
+                type="br.com.youbeer.webserverapp.apresentacao.AtualizarEstabelecimentoAction"
+                name="HomeAction"
+                scope="request"
+                validate="false">
+            <forward name="sucesso" path="atualizarEstabelecimento" />
+        </action>
 	</action-mappings>
     <message-resources parameter="resources.application" null="true"/>
     		
