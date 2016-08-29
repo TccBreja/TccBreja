@@ -2,13 +2,9 @@ package br.com.youbeer.webserverapp.apresentacao.form;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
-
-import util.criptografia.CriptografiaException;
-import br.com.bradesco.netEmpresa.cartoes.util.ValidateFormBean;
 
 public class LoginForm extends ActionForm {
 
@@ -41,10 +37,7 @@ public class LoginForm extends ActionForm {
 		if (getUsername() != null && !getUsername().equals("") && getPassword() != null && !getPassword().equals("")) {
 			
 			
-			
-				erros.add(ActionErrors.GLOBAL_ERROR, new ActionError(ERRO_FORMULARIO, configMensagens
-						.getString(ERRO_NUMERO_CARTAO)));
-			
+		
 		}
 		
 		return erros;

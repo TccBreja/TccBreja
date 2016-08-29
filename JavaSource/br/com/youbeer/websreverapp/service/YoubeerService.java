@@ -1,4 +1,4 @@
-package br.com.youbeer.websrverapp.service;
+package br.com.youbeer.websreverapp.service;
 
 import br.com.youbeer.webserverapp.jdbc.dao.AdminDAO;
 import br.com.youbeer.webserverapp.modelo.Admin;
