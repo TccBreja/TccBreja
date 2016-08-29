@@ -1,7 +1,9 @@
 package br.com.youbeer.webserverapp.modelo;
 
 public class Estabelecimento {
-
+	
+	private int codigoEstabelecimento;
+	
 	private String nomeEstabelecimento;
 	
 	private String endereco;
@@ -144,6 +146,16 @@ public class Estabelecimento {
 	/** @param tipoEstabelecimento Atribui o valor ao atributo tipoEstabelecimento */
 	public void setTipoEstabelecimento(String tipoEstabelecimento) {
 		this.tipoEstabelecimento = tipoEstabelecimento;
+	}
+
+	/** @return Retorno o atributo codigoEstabelecimento */
+	public int getCodigoEstabelecimento() {
+		return codigoEstabelecimento;
+	}
+
+	/** @param codigoEstabelecimento Atribui o valor ao atributo codigoEstabelecimento */
+	public void setCodigoEstabelecimento(int codigoEstabelecimento) {
+		this.codigoEstabelecimento = codigoEstabelecimento;
 	}
 	
 }
