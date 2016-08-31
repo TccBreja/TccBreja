@@ -27,11 +27,13 @@ $(document).ready(function(){
 <form id="cadastrarCervejaForm" name="cadastrarCervejaForm" action="cadastrarCervejas.do">
 	<input type='hidden' name="controleCerveja" id="controleCerveja" value="cadastrarCervejas"/>
 	<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
+	<input type='hidden' name=codigoEstabelecimento id="codigoEstabelecimento" value="<%=request.getParameter("codigoEstabelecimento")%>"/>
 </form>
 
 <form id="atualizarEstabelecimentoForm" name="atualizarEstabelecimentoForm" action="atualizarEstabelecimento.do">
 	<input type='hidden' name="controleCerveja" id="controleCerveja" value="atualizarEstabelecimento"/>
 	<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
+	<input type='hidden' name=codigoEstabelecimento id="codigoEstabelecimento" value="<%=request.getParameter("codigoEstabelecimento")%>"/>
 </form>
 
 

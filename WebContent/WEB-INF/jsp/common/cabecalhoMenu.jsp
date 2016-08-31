@@ -1,4 +1,3 @@
-
 <link href="estaticos/css/home.css" rel="stylesheet">
 <script type="text/javascript" src="estaticos/js/jquery-3.1.0.js"></script>
 <link href="estaticos/css/bootstrap.min.css" rel="stylesheet">

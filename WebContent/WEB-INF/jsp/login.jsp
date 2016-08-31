@@ -1,11 +1,3 @@
-<!-- 
- * parallax_login.html
- * @Author original @msurguy (tw) -> http://bootsnipp.com/snippets/featured/parallax-login-form
- * @Tested on FF && CH
- * @Reworked by @kaptenn_com (tw)
- * @package PARALLAX LOGIN.
--->
-
 <link href="estaticos/css/login.css" rel="stylesheet">
 <script type="text/javascript" src="estaticos/js/jquery-3.1.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
