@@ -10,13 +10,23 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import br.com.youbeer.webserverapp.jdbc.ConnectionFactory;
+import br.com.youbeer.webserverapp.modelo.Cerveja;
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
 
+/**
+ * Classe EstabelecimentoDAO. <br>
+ * Classe que contém os métodos de interação do objeto Estabelecimento com o banco. <br>
+ * <br>
+ * Data de Criação: Ago 28, 2016 <br>
+ */
 public class EstabelecimentoDAO {
-
+	
+	/** Atributo que armazena a conexão com o banco */
 	private Connection connection;
 	
-	// Construtor com conexão ao banco
+	/**
+	* Construtor que estabelece conexão com o banco
+	*/
 	public EstabelecimentoDAO() {
 		try {
 			connection = new ConnectionFactory().getConnection();
@@ -25,6 +35,51 @@ public class EstabelecimentoDAO {
 		}
 	}
 	
+	/**
+	 * Popula o objeto Estabelecimento
+	 * @param rs Objeto <tt>ResultSet</tt>.
+	 * @return Objeto do tipo <tt>Estabelecimento</tt> populado
+	 */
+	private Estabelecimento popularEstabelecimento(ResultSet rs) throws SQLException {
+		Estabelecimento estabelecimento = new Estabelecimento();
+
+		estabelecimento.setCodigoEstabelecimento(rs.getInt("cod_estabelecimento"));
+		estabelecimento.setNomeEstabelecimento(rs.getString("nome_estabelecimento"));
+		estabelecimento.setDescricao(rs.getString("descricao_estabelecimento"));
+		estabelecimento.setEndereco(rs.getString("endereco"));
+		estabelecimento.setTelefone(rs.getString("telefone"));
+		estabelecimento.setSite(rs.getString("site"));
+		estabelecimento.setTipoEstabelecimento(rs.getString("tipo_estabelecimento"));
+		estabelecimento.setHorarioAbertura(rs.getString("hora_abrir"));
+		estabelecimento.setHorarioFechamento(rs.getString("hora_fechar"));
+	
+		return estabelecimento;
+	}
+	
+	/**
+	 * Popula o objeto Cerveja
+	 * @param rs Objeto <tt>ResultSet</tt>.
+	 * @return Objeto do tipo <tt>Cerveja</tt> populado
+	 */
+	private Cerveja popularCerveja(ResultSet rs) throws SQLException {
+		Cerveja cerveja = new Cerveja();
+		
+		cerveja.setCodigoCerveja(rs.getInt("cod_cerveja"));
+		cerveja.setNomeCerveja(rs.getString("nome_cerveja"));
+		cerveja.setDescricao(rs.getString("descricao_cerveja"));
+		cerveja.setTipo(rs.getString("tipo_cerveja"));
+		cerveja.setTeorAlcool(rs.getString("teor_alcool"));
+		cerveja.setVolumeLiquido(rs.getString("volume_liquido"));
+		cerveja.setValor(rs.getString("valor_cerveja"));
+		
+		return cerveja;
+	}
+	
+	/**
+	 * Verifica a existência do estabelecimento
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 * @return boolean true ou false
+	 */
 	public boolean isExisteEstabelecimento(Estabelecimento estabelecimento) {
 		if (estabelecimento == null) {
 			throw new IllegalArgumentException("Estabelecimento não deve ser nulo");
@@ -32,7 +87,7 @@ public class EstabelecimentoDAO {
 		
 		try {
 			PreparedStatement stmt = this.connection
-					.prepareStatement("select * from estabelecimento where cod_estabelecimento = ?");
+					.prepareStatement("SELECT * FROM estabelecimento WHERE cod_estabelecimento = ?");
 			stmt.setInt(1, estabelecimento.getCodigoEstabelecimento());
 			ResultSet rs = stmt.executeQuery();
 			boolean encontrado = rs.next();
@@ -46,9 +101,15 @@ public class EstabelecimentoDAO {
 		}
 	}
 	
+	/**
+	 * Insere o estabelecimento no banco
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
+	 */
 	public void inserirEstabelecimento(Estabelecimento estabelecimento) {
-		String sql = "insert into estabelecimento (nome, descricao, endereco, telefone, site, tipo, hora_abrir, hora_fechar) values (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO estabelecimento (nome, descricao_estabelecimento, endereco, telefone, site, tipo_estabelecimento, hora_abrir, hora_fechar) "
+						+ "VALUES (?,?,?,?,?,?,?)";
 		PreparedStatement stmt;
+		
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, estabelecimento.getNomeEstabelecimento());
@@ -67,9 +128,14 @@ public class EstabelecimentoDAO {
 		}
 	}
 	
+	/**
+	 * Remove estabelecimento do banco
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 */
 	public void removerEstabelecimento(Estabelecimento estabelecimento) {
-		String sql = "delete from estabelecimento where cod_estabelecimento = ?";
+		String sql = "DELETE FROM estabelecimento WHERE cod_estabelecimento = ?";
 		PreparedStatement stmt;
+		
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, estabelecimento.getCodigoEstabelecimento());
@@ -81,9 +147,16 @@ public class EstabelecimentoDAO {
 		}
 	}
 	
-	public void alterarEstabelecimento(Estabelecimento estabelecimento) {
-		String sql = "update estabelecimento set nome = ?, descricao = ?, endereco = ?, telefone = ?, site = ?, tipo = ?, hora_abrir = ?, hora_fechar = ?  where cod_estabelecimento = ?";
+	/**
+	 * Altera os dados do estabelecimento no banco
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 */
+	public void alterarInformacoesEstabelecimento(Estabelecimento estabelecimento) {
+		String sql = "UPDATE estabelecimento"
+						+ "SET nome = ?, descricao_estabelecimento = ?, endereco = ?, telefone = ?, site = ?, tipo_estabelecimento = ?, hora_abrir = ?, hora_fechar = ?  "
+						+ "WHERE cod_estabelecimento = ?";
 		PreparedStatement stmt;
+		
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, estabelecimento.getNomeEstabelecimento());
@@ -103,33 +176,44 @@ public class EstabelecimentoDAO {
 		}
 	}
 	
-	private Estabelecimento popularEstabelecimento(ResultSet rs) throws SQLException {
-		Estabelecimento estabelecimento = new Estabelecimento();
-
-		estabelecimento.setCodigoEstabelecimento(rs.getInt("cod_estabelecimento"));
-		estabelecimento.setNomeEstabelecimento(rs.getString("nome"));
-		estabelecimento.setDescricao(rs.getString("descricao"));
-		estabelecimento.setEndereco(rs.getString("endereco"));
-		estabelecimento.setTelefone(rs.getString("telefone"));
-		estabelecimento.setSite(rs.getString("site"));
-		estabelecimento.setTipoEstabelecimento(rs.getString("tipo"));
-		estabelecimento.setHorarioAbertura(rs.getString("hora_abrir"));
-		estabelecimento.setHorarioFechamento(rs.getString("hora_fechar"));
-	
-		return estabelecimento;
-	}
-	
+	/**
+	 * Retorna a lista de estabelecimento de acordo com o código do admin
+	 * @param session Objeto <tt>HttpSession</tt>.
+	 * @return Lista de Objetos do tipo <tt> List<Estabelecimento></tt> 
+	 */
 	public List<Estabelecimento> listarEstabelecimentos(HttpSession session) {
+		List<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+		Estabelecimento estabelecimento = new Estabelecimento();
+		Cerveja cerveja = new Cerveja();
+		int codigoEstabelecimento = 0;
+		
 		try {
-			List<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
 			PreparedStatement stmt = this.connection
-					.prepareStatement("select * from estabelecimento where cod_admin = ?");
-			//TODO
-			//stmt.setInt(1, (int) session.getAttribute("cod_admin"));
+					.prepareStatement("SELECT e.cod_estabelecimento, e.nome_estabelecimento, e.tipo_estabelecimento, e.endereco, e.telefone, e.site, e.hora_abrir, e.hora_fechar, "
+										+ "e.cod_admin, c.cod_cerveja, c.nome_cerveja, c.descricao_cerveja, c.tipo_cerveja, c.teor_alcool, c.volume_liquido, lc.valor_cerveja "
+										+ "FROM estabelecimento e "
+										+ "JOIN lista_cervejas_estabelecimento lc ON lc.cod_estabelecimento = e.cod_estabelecimento "
+										+ "JOIN cerveja c on c.cod_cerveja = lc.cod_cerveja "
+										+ "WHERE e.cod_admin = ?  "
+										+ "ORDER BY e.cod_estabelecimento");
+			
+			stmt.setInt(1, (Integer) session.getAttribute("cod_admin"));
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				listaEstabelecimentos.add(popularEstabelecimento(rs));
+				// Preenche as informações do estabelecimento
+				if (codigoEstabelecimento != rs.getInt("cod_estabelecimento")) {
+					estabelecimento = new Estabelecimento();
+					estabelecimento = popularEstabelecimento(rs);
+					codigoEstabelecimento = rs.getInt("cod_estabelecimento");
+				}
+				
+				// Preenche as informações das cerveja e adiciona a lista
+				cerveja = popularCerveja(rs);
+				estabelecimento.getListaCervejas().add(cerveja);
+				
+				//Adiciona o estabelecimento a lista de estabelecimentos
+				listaEstabelecimentos.add(estabelecimento);
 			}
 			
 			rs.close();
@@ -141,20 +225,40 @@ public class EstabelecimentoDAO {
 		}
 	}
 	
+	/**
+	 * Retorna o estabelecimento de acordo com o código de consulta
+	 * @param codigoEstabelecimento <tt>int</tt>.
+	 * @return estabelecimento de Objetos do tipo <tt> Estabelecimento<Estabelecimento></tt> 
+	 */
 	public Estabelecimento buscarPorCodigo(int codigoEstabelecimento) {
-
+		Estabelecimento estabelecimento = new Estabelecimento();
+		Cerveja cerveja = new Cerveja();
+		
 		try {
 			PreparedStatement stmt = this.connection
-					.prepareStatement("select * from estabelecimento where cod_estabelecimento = ?");
+					.prepareStatement("SELECT e.cod_estabelecimento, e.nome_estabelecimento, e.tipo_estabelecimento, e.endereco, e.telefone, e.site, e.hora_abrir, e.hora_fechar, "
+									+ "e.cod_admin, c.cod_cerveja, c.nome_cerveja, c.descricao_cerveja, c.tipo_cerveja, c.teor_alcool, c.volume_liquido, lc.valor_cerveja "
+									+ "FROM estabelecimento e "
+									+ "JOIN lista_cervejas_estabelecimento lc ON lc.cod_estabelecimento = e.cod_estabelecimento "
+									+ "JOIN cerveja c on c.cod_cerveja = lc.cod_cerveja "
+									+ "WHERE e.cod_estabelecimento = ?");
+							
 			stmt.setInt(1, codigoEstabelecimento);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				return popularEstabelecimento(rs);
+			
+			// Preenche as informações do estabelecimento
+			estabelecimento = popularEstabelecimento(rs);
+			
+			while (rs.next()) {
+
+				// Preenche as informações das cerveja e adiciona a lista
+				cerveja = popularCerveja(rs);
+				estabelecimento.getListaCervejas().add(cerveja);
 			}
 			rs.close();
 			stmt.close();
 			connection.close();
-			return null;
+			return estabelecimento;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

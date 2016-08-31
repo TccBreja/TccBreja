@@ -6,21 +6,20 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
+/**
+ * <p>
+ *	Classe LoginForm para o formulário de login <br/>
+ * </p>
+ */
 public class LoginForm extends ActionForm {
 
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-     * Nome do usuário.
-     */
+	/** Nome do usuário.*/
 	private String username;
 	
-	/**
-     * Senha criptografada.
-     */
+	/** Senha criptografada.*/
 	private String password;
 	
 	/**

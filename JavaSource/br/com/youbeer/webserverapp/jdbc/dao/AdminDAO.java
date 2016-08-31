@@ -8,11 +8,20 @@ import java.sql.SQLException;
 import br.com.youbeer.webserverapp.jdbc.ConnectionFactory;
 import br.com.youbeer.webserverapp.modelo.Admin;
 
+/**
+ * Classe AdminDAO. <br>
+ * Classe que contém os métodos de interação do objeto Admin com o banco. <br>
+ * <br>
+ * Data de Criação: Ago 28, 2016 <br>
+ */
 public class AdminDAO {
 	
+	/** Atributo que armazena a conexão com o banco */
 	private Connection connection;
 	
-	// Construtor com conexão ao banco
+	/**
+	* Construtor que estabelece conexão com o banco
+	*/
 	public AdminDAO() {
 		try {
 			connection = new ConnectionFactory().getConnection();
@@ -21,6 +30,11 @@ public class AdminDAO {
 		}
 	}
 	
+	/**
+	 * Popula o objeto Admin
+	 * @param rs Objeto <tt>ResultSet</tt>.
+	 * @return Objeto do tipo <tt>Admin</tt> populado
+	 */
 	private Admin popularAdmin(ResultSet rs) throws SQLException {
 		Admin admin = new Admin();
 		
@@ -31,11 +45,16 @@ public class AdminDAO {
 		return admin;
 	}
 	
+	/**
+	 * Busca as informações do admin de acordo com o username
+	 * @param username <tt>String</tt>.
+	 * @return Objeto do tipo <tt>Admin</tt> populado
+	 */
 	public Admin buscarPorUsername(String username) {
 
 		try {
 			PreparedStatement stmt = this.connection
-					.prepareStatement("select * from admin where email = ?");
+					.prepareStatement("SELECT * FROM admin WHERE email = ?");
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {

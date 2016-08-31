@@ -1,11 +1,20 @@
 package br.com.youbeer.webserverapp.modelo;
 
+/**
+ * Classe modelo Admin
+ * 
+ * @since 29/08/2016
+ * @version 1.0
+ */
 public class Admin {
 	
+	/** Código indentificador do admin */
 	private int cod_admin;
 	
+	/** Nome de usuário do admin */
 	private String username;
 	
+	/** Senha criptografada do admin */
 	private String password;
 
 	/** @return Retorno o atributo cod_admin */

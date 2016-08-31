@@ -1,32 +1,57 @@
 package br.com.youbeer.webserverapp.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Classe Estabelecimento. <br>
+ * Classe modelo para Estabelecimento <br>
+ * <br>
+ * Data de Criação: Ago 28, 2016 <br>
+ */
 public class Estabelecimento {
 	
+	/** Código identificador do estabelecimento */
 	private int codigoEstabelecimento;
 	
+	/** Nome do estabelecimento */
 	private String nomeEstabelecimento;
 	
+	/** Endereço do estabelecimento */
 	private String endereco;
 	
+	/** Site do estabelecimento */
 	private String site;
 	
+	/** Telefone do estabelecimento */
 	private String telefone;
 	
+	/** Tipo do estabelecimento */
 	private String tipoEstabelecimento;
 	
+	/** Hora de abertura do estabelecimento */
 	private String horarioAbertura;
 	
+	/** Hora de fechamento do estabelecimento */
 	private String horarioFechamento;
 	
+	/** Descrição do estabelecimento */
 	private String descricao;
 	
+	/** Foto um estabelecimento */
 	private String fotoUm;
 	
+	/** Foto dois estabelecimento */
 	private String fotoDois;
 	
+	/** Foto três estabelecimento */
 	private String fotoTres;
 	
+	/** Foto quatro estabelecimento */
 	private String fotoQuatro;
+	
+	/** Lista de cervejas do estabelecimento */
+	List<Cerveja> listaCervejas = new ArrayList<Cerveja>();
 
 	/** @return Retorno o atributo nomeEstabelecimento */
 	public String getNomeEstabelecimento() {
@@ -156,6 +181,16 @@ public class Estabelecimento {
 	/** @param codigoEstabelecimento Atribui o valor ao atributo codigoEstabelecimento */
 	public void setCodigoEstabelecimento(int codigoEstabelecimento) {
 		this.codigoEstabelecimento = codigoEstabelecimento;
+	}
+
+	/** @return Retorno o atributo listaCervejas */
+	public List<Cerveja> getListaCervejas() {
+		return listaCervejas;
+	}
+
+	/** @param listaCervejas Atribui o valor ao atributo listaCervejas */
+	public void setListaCervejas(List<Cerveja> listaCervejas) {
+		this.listaCervejas = listaCervejas;
 	}
 	
 }
