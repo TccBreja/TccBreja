@@ -1,4 +1,4 @@
-package br.com.youbeer.websreverapp.service;
+package br.com.youbeer.webserverapp.service;
 
 import java.util.List;
 
