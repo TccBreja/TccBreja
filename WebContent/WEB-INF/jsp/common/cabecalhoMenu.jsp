@@ -1,5 +1,6 @@
 <link href="estaticos/css/home.css" rel="stylesheet">
 <script type="text/javascript" src="estaticos/js/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="estaticos/js/jquery.maskMoney.js"></script>
 <link href="estaticos/css/bootstrap.min.css" rel="stylesheet">
 <script src="estaticos/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="estaticos/css/font-awesome.min.css">
