@@ -2,8 +2,6 @@ package br.com.youbeer.webserverapp.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import br.com.youbeer.webserverapp.jdbc.dao.AdminDAO;
 import br.com.youbeer.webserverapp.jdbc.dao.CervejaDAO;
 import br.com.youbeer.webserverapp.jdbc.dao.EstabelecimentoDAO;
@@ -19,14 +17,18 @@ import br.com.youbeer.webserverapp.modelo.Estabelecimento;
  */
 public class YoubeerServiceImpl implements IYoubeerService  {
 	
-	/** Instância do AdminDAO */
-	private AdminDAO adminDAO = new AdminDAO();
-	
-	/** Instância do EstabelecimentoDAO */
-	private EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
-	
-	/** Instância do CervejaDAO */
-	private CervejaDAO cervejaDAO = new CervejaDAO();
+	/**
+	 * Verifica a existência do admin pelo username
+	 * @param admin Objeto <tt>Admin</tt>.
+	 * @return boolean true ou false
+	 */
+	public boolean isExisteAdmin(Admin admin){
+		
+		/** Instância do AdminDAO */
+		AdminDAO adminDAO = new AdminDAO();
+		
+		return adminDAO.isExisteAdmin(admin);
+	}
 	
 	/**
 	 * Obtem os dados de acesso do admin
@@ -35,6 +37,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public Admin obterDadosAdmin(Admin admin) {
+		
+		/** Instância do AdminDAO */
+		AdminDAO adminDAO = new AdminDAO();
+	
 		return adminDAO.buscarPorUsername(admin.getUsername());
 	}
 	
@@ -44,6 +50,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public List<Cerveja> listarCervejas() {
+		
+		/** Instância do CervejaDAO */
+		CervejaDAO cervejaDAO = new CervejaDAO();
+		
 		return cervejaDAO.listarCervejas();
 	}
 	
@@ -54,6 +64,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public void inserirCervejaEstabelecimento(Estabelecimento estabelecimento, Cerveja cerveja) {
+		
+		/** Instância do CervejaDAO */
+		CervejaDAO cervejaDAO = new CervejaDAO();
+		
 		cervejaDAO.inserirCervejaEstabelecimento(estabelecimento, cerveja);
 	}
 	
@@ -64,6 +78,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public void removerCervejaEstabelecimento(Estabelecimento estabelecimento, Cerveja cerveja) {
+		
+		/** Instância do CervejaDAO */
+		CervejaDAO cervejaDAO = new CervejaDAO();
+		
 		cervejaDAO.removerCervejaEstabelecimento(estabelecimento, cerveja);
 	}
 	
@@ -74,6 +92,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	*/
 	@Override
 	public void alterarCervejaEstabelecimento(Estabelecimento estabelecimento, Cerveja cerveja) {
+		
+		/** Instância do CervejaDAO */
+		CervejaDAO cervejaDAO = new CervejaDAO();
+		
 		cervejaDAO.alterarCervejaEstabelecimento(estabelecimento, cerveja);	
 	}
 	
@@ -83,8 +105,12 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 * @return boolean true ou false
 	 */
 	@Override
-	public boolean isExisteEstabelecimento(Estabelecimento estabelecimento) {
-		return estabelecimentoDAO.isExisteEstabelecimento(estabelecimento);
+	public boolean isExisteEstabelecimento(Admin admin) {
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
+		return estabelecimentoDAO.isExisteEstabelecimento(admin);
 	}
 	
 	/**
@@ -93,6 +119,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public void inserirEstabelecimento(Estabelecimento estabelecimento) {
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
 		estabelecimentoDAO.inserirEstabelecimento(estabelecimento);
 		
 	}
@@ -103,6 +133,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public void removerEstabelecimento(Estabelecimento estabelecimento) {
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
 		estabelecimentoDAO.removerEstabelecimento(estabelecimento);
 	}
 	
@@ -112,6 +146,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public void alterarInformacoesEstabelecimento(Estabelecimento estabelecimento) {
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
 		estabelecimentoDAO.alterarInformacoesEstabelecimento(estabelecimento);	
 	}
 	
@@ -121,8 +159,12 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 * @return Lista de Objetos do tipo <tt> List<Estabelecimento></tt> 
 	 */
 	@Override
-	public List<Estabelecimento> listarEstabelecimentos(HttpSession session) {
-		return estabelecimentoDAO.listarEstabelecimentos(session);
+	public List<Estabelecimento> listarEstabelecimentos(Admin admin) {
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
+		return estabelecimentoDAO.listarEstabelecimentos(admin);
 	}
 	
 	/**
@@ -132,6 +174,10 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 */
 	@Override
 	public Estabelecimento buscarPorCodigo(int codigoEstabelecimento) {
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
 		return estabelecimentoDAO.buscarPorCodigo(codigoEstabelecimento); 
 	}	
 }

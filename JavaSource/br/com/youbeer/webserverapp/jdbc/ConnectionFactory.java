@@ -24,7 +24,7 @@ public class ConnectionFactory {
 			throw new SQLException(e);
 		}
 
-		return DriverManager.getConnection("jdbc:mysql://localhost/",
+		return DriverManager.getConnection("jdbc:mysql://localhost/youbeer",
 				"root", "a1a2a3");
 	}
 }

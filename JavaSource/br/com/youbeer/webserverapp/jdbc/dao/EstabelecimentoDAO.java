@@ -7,9 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import br.com.youbeer.webserverapp.jdbc.ConnectionFactory;
+import br.com.youbeer.webserverapp.modelo.Admin;
 import br.com.youbeer.webserverapp.modelo.Cerveja;
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
 
@@ -23,6 +22,8 @@ public class EstabelecimentoDAO {
 	
 	/** Atributo que armazena a conexão com o banco */
 	private Connection connection;
+	
+	
 	
 	/**
 	* Construtor que estabelece conexão com o banco
@@ -77,18 +78,18 @@ public class EstabelecimentoDAO {
 	
 	/**
 	 * Verifica a existência do estabelecimento
-	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 * @param admin Objeto <tt>Admin</tt>.
 	 * @return boolean true ou false
 	 */
-	public boolean isExisteEstabelecimento(Estabelecimento estabelecimento) {
-		if (estabelecimento == null) {
-			throw new IllegalArgumentException("Estabelecimento não deve ser nulo");
+	public boolean isExisteEstabelecimento(Admin admin) {
+		if (admin == null) {
+			throw new IllegalArgumentException("Admin não deve ser nulo");
 		}
 		
 		try {
 			PreparedStatement stmt = this.connection
-					.prepareStatement("SELECT * FROM estabelecimento WHERE cod_estabelecimento = ?");
-			stmt.setInt(1, estabelecimento.getCodigoEstabelecimento());
+					.prepareStatement("SELECT * FROM estabelecimento WHERE cod_admin = ?");
+			stmt.setInt(1, admin.getCod_admin());
 			ResultSet rs = stmt.executeQuery();
 			boolean encontrado = rs.next();
 			rs.close();
@@ -178,10 +179,10 @@ public class EstabelecimentoDAO {
 	
 	/**
 	 * Retorna a lista de estabelecimento de acordo com o código do admin
-	 * @param session Objeto <tt>HttpSession</tt>.
+	 * @param admin Objeto <tt>Admin</tt>.
 	 * @return Lista de Objetos do tipo <tt> List<Estabelecimento></tt> 
 	 */
-	public List<Estabelecimento> listarEstabelecimentos(HttpSession session) {
+	public List<Estabelecimento> listarEstabelecimentos(Admin admin) {
 		List<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
 		Estabelecimento estabelecimento = new Estabelecimento();
 		Cerveja cerveja = new Cerveja();
@@ -197,7 +198,7 @@ public class EstabelecimentoDAO {
 										+ "WHERE e.cod_admin = ?  "
 										+ "ORDER BY e.cod_estabelecimento");
 			
-			stmt.setInt(1, (Integer) session.getAttribute("cod_admin"));
+			stmt.setInt(1, admin.getCod_admin());
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

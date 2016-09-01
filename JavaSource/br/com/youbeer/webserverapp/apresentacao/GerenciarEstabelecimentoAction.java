@@ -5,22 +5,46 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import br.com.youbeer.webserverapp.modelo.Admin;
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
+import br.com.youbeer.webserverapp.service.IYoubeerService;
+import br.com.youbeer.webserverapp.service.YoubeerServiceImpl;
 
 public class GerenciarEstabelecimentoAction extends ActionBase{
 
 	@Override
 	protected ActionForward executar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
 		
-		/**Metodo mockado da implementação da view do estabelecimento*/
+		// Obtém sessão
+		HttpSession session = request.getSession();
 		
+		// Instância do service
+		IYoubeerService service = new YoubeerServiceImpl();
+		
+		// Obtém dados da sessão
+		String username = String.valueOf(session.getAttribute("username"));
+		
+		// Prepara o objeto de entrada
+		Admin admin = new Admin();
+		admin.setUsername(username);
+		
+		// Faz a requisição dos dados do admin
+		admin = service.obterDadosAdmin(admin);
+		
+		// Obtém a lista de estabelecimentos do usuário
 		List<Estabelecimento> estabelecimentos = new ArrayList<Estabelecimento>();
 		
+		if (service.isExisteEstabelecimento(admin)) {
+			estabelecimentos = service.listarEstabelecimentos(admin);
+		}
+		
+		/*
 		Estabelecimento estabelecimento1 = new Estabelecimento();
 		estabelecimento1.setNomeEstabelecimento("Teste Um");
 		estabelecimento1.setDescricao("Aqui é Body Builder Ipsum PORRA! Vai subir árvore é o caralho porra! Negativa Bambam negativa. "
@@ -49,6 +73,7 @@ public class GerenciarEstabelecimentoAction extends ActionBase{
 		
 		estabelecimentos.add(estabelecimento1);
 		estabelecimentos.add(estabelecimento2);
+		*/
 		
 		request.setAttribute("listaEstabelecimentos", estabelecimentos);
 		

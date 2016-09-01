@@ -39,8 +39,8 @@ public class AdminDAO {
 		Admin admin = new Admin();
 		
 		admin.setCod_admin(rs.getInt("cod_admin"));
-		admin.setPassword(rs.getString("email"));
-		admin.setUsername(rs.getString("senha"));
+		admin.setPassword(rs.getString("senha"));
+		admin.setUsername(rs.getString("email"));
 		
 		return admin;
 	}
@@ -64,6 +64,28 @@ public class AdminDAO {
 			stmt.close();
 			connection.close();
 			return null;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * Verifica se o admin está cadastrado no banco
+	 * @param username <tt>String</tt>.
+	 * @return Objeto do tipo <tt>Admin</tt> populado
+	 */
+	public boolean isExisteAdmin(Admin admin) {
+
+		try {
+			PreparedStatement stmt = this.connection
+					.prepareStatement("SELECT * FROM admin WHERE email = ?");
+			stmt.setString(1, admin.getUsername());
+			ResultSet rs = stmt.executeQuery();
+			boolean encontrado = rs.next();
+			rs.close();
+			stmt.close();
+			connection.close();
+			return encontrado;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

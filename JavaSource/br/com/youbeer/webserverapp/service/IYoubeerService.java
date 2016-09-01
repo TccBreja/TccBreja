@@ -2,8 +2,6 @@ package br.com.youbeer.webserverapp.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import br.com.youbeer.webserverapp.modelo.Admin;
 import br.com.youbeer.webserverapp.modelo.Cerveja;
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
@@ -15,6 +13,13 @@ import br.com.youbeer.webserverapp.modelo.Estabelecimento;
  * @version 1.0
  */
 public interface IYoubeerService {
+	
+	/**
+	 * Verifica a existência do admin pelo username
+	 * @param admin Objeto <tt>Admin</tt>.
+	 * @return boolean true ou false
+	 */
+	public boolean isExisteAdmin(Admin admin);
 	
 	/**
 	 * Obtem os dados de acesso do admin
@@ -52,10 +57,10 @@ public interface IYoubeerService {
 	
 	/**
 	 * Verifica a existência do estabelecimento
-	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 * @param admin Objeto <tt>Admin</tt>.
 	 * @return boolean true ou false
 	 */
-	public boolean isExisteEstabelecimento(Estabelecimento estabelecimento);
+	public boolean isExisteEstabelecimento(Admin admin);
 	
 	/**
 	 * Insere o estabelecimento no banco
@@ -80,7 +85,7 @@ public interface IYoubeerService {
 	 * @param session Objeto <tt>HttpSession</tt>.
 	 * @return Lista de Objetos do tipo <tt> List<Estabelecimento></tt> 
 	 */
-	public List<Estabelecimento> listarEstabelecimentos(HttpSession session);
+	public List<Estabelecimento> listarEstabelecimentos(Admin admin);
 	
 	/**
 	 * Retorna o estabelecimento de acordo com o código de consulta
