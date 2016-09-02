@@ -17,19 +17,21 @@ $(document).ready(function(){
 	//Adiciona uma linha de cerveja na tabela
 	$("#adicionarCerveja").click(function(){
 	    $("#tratamentoListaAdd").append("<%=request.getAttribute("appendListaCervejas")%>");
+	    $(".dinheiro").maskMoney({symbol:'', 
+			showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
 	});
 	
 	//Remove uma linha de cerveja da tabela 
 	$("#tratamentoListaAdd").delegate('.deletavel','click', function(){
 		this.closest('tr').remove();
 	});
+	
 	//Mascara os valores em real da aplicação
 	$(function(){
 		 $(".dinheiro").maskMoney({symbol:'', 
 		showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
-		 });
-});
-
+	 });
+});	
 </script>
 
 <div class="container pt50 pb10 fundoHome">
@@ -53,24 +55,54 @@ $(document).ready(function(){
 							</tr> 
 						</thead>
 						<tbody id="tratamentoListaAdd">
-							<tr>
-								<td align="center">
-									<a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-								</td>
-								<td class="hidden-xs">
-									<select id="listaCervejasSelect" name="listaCervejasSelect" class="form-control">
-										<logic:iterate id="listaCervejas" name="listaCervejas">
-											<option value="<bean:write name="listaCervejas" property="codigoCerveja"/>"><bean:write name="listaCervejas" property="nomeCerveja"/> - <bean:write name="listaCervejas" property="tipo"/></option>
-										</logic:iterate>
-									</select>
-								</td>
-								<td>
-									<div class="input-group">
-										<div class="input-group-addon">$</div>
-										<input type="text" class="form-control dinheiro">
-									</div>
-								</td>
-							</tr>
+							<logic:notEmpty name="listaCervejasEstabelecimento">
+								<logic:iterate id="listaCervejasEstabelecimento" name="listaCervejasEstabelecimento">
+									<tr>
+										<td align="center">
+											<a class="btn btn-danger deletavel"><em class="fa fa-trash"></em></a>
+										</td>
+										<td class="hidden-xs">
+											<select id="listaCervejasSelect" name="listaCervejasSelect" class="form-control">
+												<option value="<bean:write name="listaCervejasEstabelecimento" property="codigoCerveja"/>"> 	
+													<bean:write name="listaCervejasEstabelecimento" property="nomeCerveja"/> - 
+													<bean:write name="listaCervejasEstabelecimento" property="tipo"/> : 
+													<bean:write name="listaCervejasEstabelecimento" property="volumeLiquido"/>mL			
+												</option>	
+											</select>
+										</td>
+										<td>
+											<div class="input-group">
+												<div class="input-group-addon">$</div>
+												<input type="text" class="form-control dinheiro" value="<bean:write name="listaCervejasEstabelecimento" property="valor"/>">
+											</div>
+										</td>
+									</tr>		
+								</logic:iterate>
+							</logic:notEmpty>
+							<logic:empty name="listaCervejasEstabelecimento">
+									<tr>
+										<td align="center">
+											<a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+										</td>
+										<td class="hidden-xs">
+											<select id="listaCervejasSelect" name="listaCervejasSelect" class="form-control">
+												<logic:iterate id="listaCervejasBanco" name="listaCervejasBanco">
+													<option value="<bean:write name="listaCervejasBanco" property="codigoCerveja"/>">
+																   <bean:write name="listaCervejasBanco" property="nomeCerveja"/> -
+																   <bean:write name="listaCervejasBanco" property="tipo"/> :
+																   <bean:write name="listaCervejasBanco" property="volumeLiquido"/>mL	
+													</option>
+												</logic:iterate>
+											</select>
+										</td>
+										<td>
+											<div class="input-group">
+												<div class="input-group-addon">$</div>
+												<input type="text" class="form-control dinheiro">
+											</div>
+										</td>
+									</tr>
+							</logic:empty>
 						</tbody>
 					</table>
 					<div class="col col-xs-1 text-left pt10 pb10">

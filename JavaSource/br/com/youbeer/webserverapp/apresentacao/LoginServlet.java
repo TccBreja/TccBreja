@@ -72,6 +72,10 @@ public class LoginServlet extends HttpServlet {
 			
 			// Faz a verificação com os dados obtidos
 			if(StringUtils.equals(senhaEntrada, admin.getPassword())){
+				
+				// Coloca o nome do usuário na sessão
+				request.getSession().setAttribute("username", username);
+				
 				// Retorna json de acesso
 				response.getWriter().write("{\"retorno\":\"acessoPermitido\"}");	
 			} else {

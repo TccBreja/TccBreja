@@ -11,16 +11,28 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import br.com.youbeer.webserverapp.modelo.Cerveja;
+import br.com.youbeer.webserverapp.modelo.Estabelecimento;
+import br.com.youbeer.webserverapp.service.IYoubeerService;
+import br.com.youbeer.webserverapp.service.YoubeerServiceImpl;
 
 public class CadastrarCervejasAction extends ActionBase{
 
 	@Override
 	protected ActionForward executar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
+	
+		// Instância do service
+		IYoubeerService service = new YoubeerServiceImpl();
 		
-		List<Cerveja> cervejas = new ArrayList<Cerveja>();
+		// Obtém o estabelecimento escolhido
+		int codigoEstabelecimento = Integer.parseInt(request.getParameter("codigoEstabelecimento"));
+		Estabelecimento estabelecimento = service.buscarPorCodigo(codigoEstabelecimento);
+			
+		// Obtém a lista de cervejas cadastradas no banco
+		List<Cerveja> cervejas = service.listarCervejas();
 		
+		/*
 		//Mock do recebimento da lista de cervejas
-		
+		List<Cerveja> cervejas = new ArrayList<Cerveja>();
 		Cerveja cerveja1 = new Cerveja();
 		cerveja1.setCodigoCerveja(101010);
 		cerveja1.setNomeCerveja("Skoll");
@@ -35,10 +47,11 @@ public class CadastrarCervejasAction extends ActionBase{
 		cervejas.add(cerveja2);
 		cervejas.add(cerveja2);
 		cervejas.add(cerveja2);
+		*/
 		
-		
-		request.setAttribute("listaCervejas", cervejas);
-		request.setAttribute("appendListaCervejas", criaAppendLista(cervejas));
+		request.setAttribute("listaCervejasEstabelecimento", estabelecimento.getListaCervejas());
+		request.setAttribute("listaCervejasBanco", cervejas);
+		request.setAttribute("appendListaCervejas", criaAppendLista(estabelecimento.getListaCervejas()));
 		return mapping.findForward("sucesso");
 	}
 
@@ -51,11 +64,11 @@ public class CadastrarCervejasAction extends ActionBase{
 		String appendLista = "";
 		appendLista += "<tr><td align='center'><a class='btn btn-danger deletavel'><em class='fa fa-trash'>"
 				+ "</em></a></td><td class='hidden-xs'><select id='listaCervejasSelect' name='listaCervejasSelect' class='form-control'>"
-				+ "<logic:iterate id='listaCervejas' name='listaCervejas'>";
+				+ "<logic:iterate id='listaCervejas' name='listaCervejasBanco'>";
 		
 		for(Cerveja cerveja : cervejas){
 			appendLista += "<option value='" + cerveja.getCodigoCerveja() + "'>";
-			appendLista += cerveja.getNomeCerveja() + " - " + cerveja.getTipo();
+			appendLista += cerveja.getNomeCerveja() + " - " + cerveja.getTipo() + ": " + cerveja.getVolumeLiquido() + "mL";
 			appendLista += "</option>";
 		}
 		
@@ -64,6 +77,4 @@ public class CadastrarCervejasAction extends ActionBase{
 		return appendLista;
 		
 	}
-	
-	
 }

@@ -39,11 +39,9 @@ public class EstabelecimentoDAO {
 	/**
 	 * Popula o objeto Estabelecimento
 	 * @param rs Objeto <tt>ResultSet</tt>.
-	 * @return Objeto do tipo <tt>Estabelecimento</tt> populado
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
 	 */
-	private Estabelecimento popularEstabelecimento(ResultSet rs) throws SQLException {
-		Estabelecimento estabelecimento = new Estabelecimento();
-
+	private void popularEstabelecimento(ResultSet rs, Estabelecimento estabelecimento) throws SQLException {
 		estabelecimento.setCodigoEstabelecimento(rs.getInt("cod_estabelecimento"));
 		estabelecimento.setNomeEstabelecimento(rs.getString("nome_estabelecimento"));
 		estabelecimento.setDescricao(rs.getString("descricao_estabelecimento"));
@@ -53,8 +51,6 @@ public class EstabelecimentoDAO {
 		estabelecimento.setTipoEstabelecimento(rs.getString("tipo_estabelecimento"));
 		estabelecimento.setHorarioAbertura(rs.getString("hora_abrir"));
 		estabelecimento.setHorarioFechamento(rs.getString("hora_fechar"));
-	
-		return estabelecimento;
 	}
 	
 	/**
@@ -190,8 +186,8 @@ public class EstabelecimentoDAO {
 		
 		try {
 			PreparedStatement stmt = this.connection
-					.prepareStatement("SELECT e.cod_estabelecimento, e.nome_estabelecimento, e.tipo_estabelecimento, e.endereco, e.telefone, e.site, e.hora_abrir, e.hora_fechar, "
-										+ "e.cod_admin, c.cod_cerveja, c.nome_cerveja, c.descricao_cerveja, c.tipo_cerveja, c.teor_alcool, c.volume_liquido, lc.valor_cerveja "
+					.prepareStatement("SELECT e.cod_estabelecimento, e.nome_estabelecimento, e.descricao_estabelecimento, e.tipo_estabelecimento, e.endereco, e.telefone, e.site, "
+										+ "e.hora_abrir, e.hora_fechar, e.cod_admin, c.cod_cerveja, c.nome_cerveja, c.descricao_cerveja, c.tipo_cerveja, c.teor_alcool, c.volume_liquido, lc.valor_cerveja "
 										+ "FROM estabelecimento e "
 										+ "JOIN lista_cervejas_estabelecimento lc ON lc.cod_estabelecimento = e.cod_estabelecimento "
 										+ "JOIN cerveja c on c.cod_cerveja = lc.cod_cerveja "
@@ -204,17 +200,15 @@ public class EstabelecimentoDAO {
 			while (rs.next()) {
 				// Preenche as informações do estabelecimento
 				if (codigoEstabelecimento != rs.getInt("cod_estabelecimento")) {
+					//Adiciona o estabelecimento a lista de estabelecimentos e popula o mesmo
 					estabelecimento = new Estabelecimento();
-					estabelecimento = popularEstabelecimento(rs);
+					listaEstabelecimentos.add(estabelecimento);
+					popularEstabelecimento(rs, estabelecimento);
 					codigoEstabelecimento = rs.getInt("cod_estabelecimento");
 				}
-				
 				// Preenche as informações das cerveja e adiciona a lista
 				cerveja = popularCerveja(rs);
 				estabelecimento.getListaCervejas().add(cerveja);
-				
-				//Adiciona o estabelecimento a lista de estabelecimentos
-				listaEstabelecimentos.add(estabelecimento);
 			}
 			
 			rs.close();
@@ -237,8 +231,8 @@ public class EstabelecimentoDAO {
 		
 		try {
 			PreparedStatement stmt = this.connection
-					.prepareStatement("SELECT e.cod_estabelecimento, e.nome_estabelecimento, e.tipo_estabelecimento, e.endereco, e.telefone, e.site, e.hora_abrir, e.hora_fechar, "
-									+ "e.cod_admin, c.cod_cerveja, c.nome_cerveja, c.descricao_cerveja, c.tipo_cerveja, c.teor_alcool, c.volume_liquido, lc.valor_cerveja "
+					.prepareStatement("SELECT e.cod_estabelecimento, e.nome_estabelecimento, e.descricao_estabelecimento, e.tipo_estabelecimento, e.endereco, e.telefone, e.site, "
+									+ "e.hora_abrir, e.hora_fechar, e.cod_admin, c.cod_cerveja, c.nome_cerveja, c.descricao_cerveja, c.tipo_cerveja, c.teor_alcool, c.volume_liquido, lc.valor_cerveja "
 									+ "FROM estabelecimento e "
 									+ "JOIN lista_cervejas_estabelecimento lc ON lc.cod_estabelecimento = e.cod_estabelecimento "
 									+ "JOIN cerveja c on c.cod_cerveja = lc.cod_cerveja "
@@ -247,11 +241,15 @@ public class EstabelecimentoDAO {
 			stmt.setInt(1, codigoEstabelecimento);
 			ResultSet rs = stmt.executeQuery();
 			
-			// Preenche as informações do estabelecimento
-			estabelecimento = popularEstabelecimento(rs);
+			
 			
 			while (rs.next()) {
-
+				
+				if(estabelecimento == null){
+					// Preenche as informações do estabelecimento
+					popularEstabelecimento(rs, estabelecimento);
+				}
+				
 				// Preenche as informações das cerveja e adiciona a lista
 				cerveja = popularCerveja(rs);
 				estabelecimento.getListaCervejas().add(cerveja);
