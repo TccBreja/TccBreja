@@ -1,6 +1,5 @@
 package br.com.youbeer.webserverapp.apresentacao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +72,7 @@ public class CadastrarCervejasAction extends ActionBase{
 		}
 		
 		appendLista += "</logic:iterate></select></td><td><div class='input-group'><div class='input-group-addon'>$</div>"
-				+ "<input type='text' class='form-control dinheiro'></div></td></tr>";
+				+ "<input type='text' name='valorCerveja' class='form-control dinheiro'></div></td></tr>";
 		return appendLista;
 		
 	}
