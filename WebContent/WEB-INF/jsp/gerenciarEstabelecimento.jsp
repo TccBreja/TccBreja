@@ -54,8 +54,8 @@ function submitForm(codigoEstabelecimento){
 }
 </script>
 
-<form id="cadastrarCervejasForm" name="cadastrarCervejasForm" action="cadastrarCervejas.do">
-	<input type='hidden' name=codigoEstabelecimento id="codigoEstabelecimento" value=""/>
+<form id="cadastrarCervejasForm" name="cadastrarCervejasForm" action="cadastrarCervejas.do" method="POST">
+	<input type='hidden' name="codigoEstabelecimento" id="codigoEstabelecimento" value=""/>
 	<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
 	<input type='hidden' name="controleCerveja" id="controleCerveja" value="cadastrarCervejas"/>
 </form>

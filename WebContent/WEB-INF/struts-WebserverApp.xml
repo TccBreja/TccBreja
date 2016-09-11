@@ -86,7 +86,7 @@
                 name="HomeAction"
                 scope="request"
                 validate="false">
-            <forward name="sucesso" path="cadastrarCervejas" />
+            <forward name="sucesso" path="listaAtualizadaSucesso" />
         </action>
         
          <!-- Action atualizar estabelecimento -->

@@ -67,7 +67,9 @@ public class EstabelecimentoDAO {
 		cerveja.setTipo(rs.getString("tipo_cerveja"));
 		cerveja.setTeorAlcool(rs.getString("teor_alcool"));
 		cerveja.setVolumeLiquido(rs.getString("volume_liquido"));
-		cerveja.setValor(rs.getString("valor_cerveja"));
+		String valorCerveja = rs.getString("valor_cerveja");
+		valorCerveja = valorCerveja.replace(".", ",");
+		cerveja.setValor(valorCerveja);
 		
 		return cerveja;
 	}
@@ -245,7 +247,7 @@ public class EstabelecimentoDAO {
 			
 			while (rs.next()) {
 				
-				if(estabelecimento == null){
+				if(estabelecimento.getDescricao() == null){
 					// Preenche as informações do estabelecimento
 					popularEstabelecimento(rs, estabelecimento);
 				}

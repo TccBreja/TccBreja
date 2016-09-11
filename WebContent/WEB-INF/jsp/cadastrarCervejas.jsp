@@ -11,6 +11,7 @@
 <style>
 	#titulo { background-color: #df8e01!important; }
 	.erro {border-color: a94442; box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px red }
+	.repetida {border-color: #449d44; box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #449d44 }
 </style>
 
 <% 
@@ -29,7 +30,6 @@
 	
 	// Faz o submit no form
 	function submitForm(){	
-			
 		resultado = verificarCampos();
 		
 		if(resultado){
@@ -41,42 +41,90 @@
 	
 	// Desabilita o option após escolhido
 	function desabilitaOption(option){
-		option.closest('select').disabled = true;
+		var flagPresente = false;
+			opcaoRepetida = "A cerveja já foi selecionada anteriormente";
+			i = 1;
+			tamanhoSelect = $("#salvarListaCervejaForm").find('select').length;
+		
+		// Habilita o input	de preço
+		$(option).parent().next().find('input').removeAttr("disabled");
+		
+		// Remove todos os erros da página
+		removerTodosErros();	
+			
+		// Verifica se a cerveja escolhida já está presente na lista
+		$("#salvarListaCervejaForm").find('select').each(function() {
+			if(this.value == option.value && i < tamanhoSelect){
+				flagPresente = true;
+				$(option).parent().next().find('input').attr('disabled','disabled');
+				exibirErros(this, opcaoRepetida, 'erro');
+			}
+			i++;		
+		});
+		
+		if(!flagPresente){
+			// Desabilita option para salvar a opção	
+			$(option).closest('select').attr('readonly','readonly');
+		
+			// Habilita o botão de adicionar para nova opção
+			$("#adicionarCerveja").removeAttr('disabled');
+		}	
 	}
 	
 	// Valida os campos de entrada
 	function verificarCampos(){
 		var	mensagemCampoObrigatorio = "Campo(s) obrigatório(s)";
 			retorno = true;
-		
+				
 		$("#salvarListaCervejaForm").find('input[type=text]').each(function() {
 			if(this.value == ""){
-				exibirErros(this.name, mensagemCampoObrigatorio);
+				exibirErros(this, mensagemCampoObrigatorio, 'erro');
 				retorno = false;
-			}
-			
+			}			
 		});
 		
 		return retorno;
 	}
 	
 	// Exibe as mensagens de erro
-	function exibirErros(campoErro, mensagem){
+	function exibirErros(campoErro, mensagem, estilo){			
+		$(campoErro).addClass(estilo);
+		$(campoErro).siblings().addClass(estilo);
+		$("#mensagemErro").text(mensagem);
+		$("#mensagemErro").css('display','block');
+	}
 		
-		var campoErro = document.getElementsByName(campoErro);
-		
-		$(campoErro).addClass('erro');
-		$(campoErro).parent().addClass('erro');
-		//$("#mensagemErro").text(mensagem);
-		//$("#mensagemErro").css('display','block');
+	// Remove o erro do campo que está sendo digitado
+	function removerErro(input){
+		$(input).removeClass('erro');
+		$(input).siblings().removeClass('erro');
+		$("#mensagemErro").css('display','none');
+	}
+	
+	// Remove todos os campos de erros
+	function removerTodosErros(){
+		$('input').removeClass('erro');
+		$('div').find('.input-group-addon').removeClass('erro');
+		$('select').removeClass('erro');
+		$('input').removeClass('repetida');
+		$('div').find('.input-group-addon').removeClass('repetida');
+		$('select').removeClass('repetida');
+		$("#mensagemErro").css('display','none');
 	}
 	
 </script>
 
-<form id="salvarListaCervejaForm" name="salvarListaCervejaForm" action="salvarListaCervejaForm">
-	<div class="container pt50 pb10 fundoHome">
+<form id="salvarListaCervejaForm" name="salvarListaCervejaForm" action="salvarListaCervejaEstabelecimento.do" method="POST">
+	
+ 	
+	
+	<div class="container pb10 fundoHome">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
+				<div id="boxInvisivel" style="height: 40px; margin-top: 20px;">
+       				<span id="mensagemErro" align="center" style="display: none; color: a94442; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 700"></span>
+  				</div>
+			
 				<div class="panel panel-default panel-table">
 					<div class="panel-heading" id="titulo">
 						<div class="row">
@@ -105,7 +153,7 @@
 												<a class="btn btn-danger deletavel"><em class="fa fa-trash"></em></a>
 											</td>
 											<td class="hidden-xs">
-												<select id="listaCervejasSelect" name="listaCervejasSelect<%=index%>" class="form-control" disabled>
+												<select id="listaCervejasSelect<%=index%>" name="listaCervejasSelect<%=index%>" class="form-control" readonly="readonly">
 													<option value="<bean:write name="listaCervejasEstabelecimento" property="codigoCerveja"/>"> 	
 														<bean:write name="listaCervejasEstabelecimento" property="nomeCerveja"/> - 
 														<bean:write name="listaCervejasEstabelecimento" property="tipo"/> : 
@@ -128,7 +176,7 @@
 											<a class="btn btn-danger"><em class="fa fa-trash"></em></a>
 										</td>
 										<td class="hidden-xs">
-											<select id="listaCervejasSelect" name="listaCervejasSelect<%=index%>" class="form-control">
+											<select id="listaCervejasSelect<%=index%>" name="listaCervejasSelect<%=index%>" class="form-control">
 												<logic:iterate id="listaCervejasBanco" name="listaCervejasBanco">
 													<option value="<bean:write name="listaCervejasBanco" property="codigoCerveja"/>">
 																   <bean:write name="listaCervejasBanco" property="nomeCerveja"/> -
@@ -153,7 +201,7 @@
 							<button type="button" class="btn btn-success" id="adicionarCerveja">
 								<p>Adicionar Cerveja</p>
 							</button>
-						</div>		
+						</div>	
 						<div class="col col-xs-1 text-left pt10 pb10" style="float: right;">
 							<button type="button" class="btn btn-success" id="btnSalvar" onclick="submitForm();" style="width: 138px; float: right;">
 								<p>Salvar</p>
@@ -165,14 +213,15 @@
 		</div>
 	</div>	
 	<input type="hidden" id="index" name="index" value="<%=index%>">
+	<input type='hidden' name="codigoEstabelecimento" value="<%=request.getParameter("codigoEstabelecimento")%>" />
+	<input type='hidden' name="controleMenu" value="gerenciarEstabelecimento" />
 </form>
 
 <script>
 	//Adiciona uma linha de cerveja na tabela
-	$("#adicionarCerveja").click(function(){
-		
+	$("#adicionarCerveja").click(function(){	
 		// Obtém index
-		var options = "";
+		var options = "<option selected disabled>Selecione uma cerveja</option>";
 			index = $("#index").val();
 							
 		<% 	
@@ -193,10 +242,10 @@
 	    // Cria o apend
 		var appendLinha = "<tr><td align='center'><a class='btn btn-danger deletavel'><em class='fa fa-trash'>"
 						+ "</em></a></td><td class='hidden-xs'>"
-						+ "<select id='listaCervejasSelect' name='listaCervejasSelect" + index + "' class='form-control' onchange='desabilitaOption(this)'>"
+						+ "<select id='listaCervejasSelect" + index + "' name='listaCervejasSelect" + index + "' class='form-control' onchange='desabilitaOption(this)'>"
 						+  options	
 						+ "</select></td><td><div class='input-group'><div class='input-group-addon'>$</div>"
-						+ "<input type='text' name='valorCerveja" + index +"' class='form-control dinheiro'></div></td></tr>"
+						+ "<input type='text' name='valorCerveja" + index +"' class='form-control dinheiro' onkeyup='removerErro(this);' disabled></div></td></tr>"
 		
 		// Adiciona linha
 	    $("#tratamentoListaAdd").append(appendLinha);
@@ -207,14 +256,16 @@
 		// Mascara os valores em real do campo valor
 		$(".dinheiro").maskMoney({symbol:'', 
 			showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+		
+		// Desabilita o botão
+		$("#adicionarCerveja").attr('disabled','disabled');
 	});
 	
 	//Remove uma linha de cerveja da tabela 
 	$("#tratamentoListaAdd").delegate('.deletavel','click', function(){
-		
 		// Obtem index
 		var index = $("#index").val();
-		
+
 		// Atualiza o index 
 	    index--;
 	
@@ -223,6 +274,9 @@
 		
 		// Atualiza o valor do index no form
 		$("#index").val(index);
+		
+		// Habilita o botão de adicionar para nova opção
+		$("#adicionarCerveja").removeAttr('disabled');
 	});
 </script>
 

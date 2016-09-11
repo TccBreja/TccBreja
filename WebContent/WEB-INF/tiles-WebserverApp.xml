@@ -57,4 +57,10 @@
     <definition name="atualizarEstabelecimento" extends="wpp.main">
 		<put name="body" value="/WEB-INF/jsp/atualizarEstabelecimento.jsp"/>
     </definition>
+    
+     <!--Chamada da view de lista de Cervejas do estabelecimentoS atualizada  -->
+    <definition name="listaAtualizadaSucesso" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/listaAtualizadaSucesso.jsp"/>
+    </definition>
+  S
 </tiles-definitions>
