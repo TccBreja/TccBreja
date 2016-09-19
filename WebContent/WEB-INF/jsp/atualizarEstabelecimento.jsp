@@ -156,7 +156,10 @@ $(document).ready(function(){
 <div class="container pt50 pb10 fundoHome">
     <div class="row">
 		<form class="form-horizontal pr300" action="adicionarFotosEstabelecimento.do" id="adicionarFotosEstabelecimentoForm">
-		<input type='hidden' name="controleMenu" id="controleMenu" value="cadastrarEstabelecimento"/>
+		<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
+		<input type='hidden' name="controleCerveja" id="controleCerveja" value="atualizarEstabelecimento"/>
+		<input type='hidden' name="codigoEstabelecimento" value="<%=request.getParameter("codigoEstabelecimento")%>" />
+
 			<fieldset>
 			
 			<!-- Text input nome do estabelecimento-->
@@ -220,6 +223,19 @@ $(document).ready(function(){
 					<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
 					<span id="inputError2Status" class="sr-only">(error)</span>
 				</div> 
+			  </div>
+			</div>
+			
+			<!-- Select Basic tipo do estabelecimento -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="tipoEstabelecimento"></label>
+			  <div class="col-md-5">
+			    <select id="tipoEstabelecimento" name="tipoEstabelecimento" class="form-control">
+			      <option value="bar">Bar</option>
+			      <option value="balada">Balada</option>
+			      <option value="conveniencia">Conveniência</option>
+			      <option value="mercado">Mercado</option>
+			    </select>
 			  </div>
 			</div>
 			

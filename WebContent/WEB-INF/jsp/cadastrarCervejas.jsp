@@ -171,12 +171,16 @@
 									</logic:iterate>
 								</logic:notEmpty>
 								<logic:empty name="listaCervejasEstabelecimento">
+									<% 	// Atualiza index
+										index++;
+									%>
 									<tr>
 										<td align="center">
 											<a class="btn btn-danger"><em class="fa fa-trash"></em></a>
 										</td>
 										<td class="hidden-xs">
-											<select id="listaCervejasSelect<%=index%>" name="listaCervejasSelect<%=index%>" class="form-control">
+											<select id="listaCervejasSelect<%=index%>" name="listaCervejasSelect<%=index%>" onchange="desabilitaOption(this)" class="form-control">
+												<option selected disabled>Selecione uma cerveja</option>
 												<logic:iterate id="listaCervejasBanco" name="listaCervejasBanco">
 													<option value="<bean:write name="listaCervejasBanco" property="codigoCerveja"/>">
 																   <bean:write name="listaCervejasBanco" property="nomeCerveja"/> -

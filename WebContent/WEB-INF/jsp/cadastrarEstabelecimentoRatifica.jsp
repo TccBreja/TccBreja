@@ -1,8 +1,16 @@
 <jsp:include page="common/cabecalhoMenu.jsp"></jsp:include>
 
+<% 	if (request.getParameter("controleCerveja") != null) { %>
+	<jsp:include page="common/cabecalhoCervejas.jsp"></jsp:include>
+<% } %>
+
 <div class="container pt50 pb10 fundoHome">
 	<div class="alert alert-success">
-		<strong>Success!</strong> Indicates a successful or positive action.
+		<% 	if (request.getParameter("controleCerveja") != null) { %>
+			<strong>Estabelecimento atualizado com sucesso!</strong>
+		<% } else { %>
+			<strong>Estabelecimento cadastrado com sucesso!</strong>
+		<% } %>
 	</div>
 	<div>
 		Aqui é Body Builder Ipsum PORRA! Aqui nóis constrói fibra, não é água com músculo. É esse que a gente quer, é ele que nóis vamo buscar. Sabe o que é isso daí? Trapézio descendente é o nome disso aí. Negativa Bambam negativa. AHHHHHHHHHHHHHHHHHHHHHH..., porra! É 37 anos caralho!
@@ -17,6 +25,6 @@
 	</div>	
 	<form id="gerenciarEstabelecimentoForm" name="gerenciarEstabelecimentoForm" action="gerenciarEstabelecimento.do">
 		<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
-		<button id="btnConfirma" name="btnConfirma" class="btn btn-warning btn-lg">Cadastra Cervejas Agora !</button>
+		<button id="btnConfirma" name="btnConfirma" class="btn btn-warning btn-lg">Cadastrar Cervejas Agora !</button>
 	</form>	
 </div>

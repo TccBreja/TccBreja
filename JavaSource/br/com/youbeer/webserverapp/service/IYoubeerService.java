@@ -65,8 +65,9 @@ public interface IYoubeerService {
 	/**
 	 * Insere o estabelecimento no banco
 	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
+	 * @return código do estabelecimento inserido <tt>int<int></tt> 
 	 */
-	public void inserirEstabelecimento(Estabelecimento estabelecimento);
+	public int inserirEstabelecimento(Estabelecimento estabelecimento);
 	
 	/**
 	 * Remove estabelecimento do banco
@@ -93,5 +94,13 @@ public interface IYoubeerService {
 	 * @return estabelecimento de Objetos do tipo <tt> Estabelecimento<Estabelecimento></tt> 
 	 */
 	public Estabelecimento buscarPorCodigo(int codigoEstabelecimento);
+	
+	/**
+	 * Grava o caminho da foto do estabelecimento inserido pelo usuário
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
+	 * @param numeroFoto <tt>String</tt> do campo que será populado.
+	 * @param caminhoFoto <tt>String</tt> com o caminho da imagem a ser salva.
+	 */
+	public void inserirFotosEstabelecimento(Estabelecimento estabelecimento, String campoNome, String caminhoFoto);
 		
 }

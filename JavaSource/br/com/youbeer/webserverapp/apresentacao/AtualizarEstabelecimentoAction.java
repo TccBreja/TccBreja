@@ -8,12 +8,25 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
+import br.com.youbeer.webserverapp.service.IYoubeerService;
+import br.com.youbeer.webserverapp.service.YoubeerServiceImpl;
 
 public class AtualizarEstabelecimentoAction extends ActionBase{
 
 	@Override
 	protected ActionForward executar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
 		
+		// Instância do service
+		IYoubeerService service = new YoubeerServiceImpl();
+				
+		// Obtém o estabelecimento escolhido
+		int codigoEstabelecimento = Integer.parseInt(request.getParameter("codigoEstabelecimento"));
+		Estabelecimento estabelecimento = service.buscarPorCodigo(codigoEstabelecimento);
+		
+		// Seta o estabelecimento como atributo de request
+		request.setAttribute("estabelecimento", estabelecimento);
+		
+		/*
 		Estabelecimento estabelecimento1 = new Estabelecimento();
 		estabelecimento1.setNomeEstabelecimento("Teste Um");
 		estabelecimento1.setDescricao("Aqui é Body Builder Ipsum PORRA! Vai subir árvore é o caralho porra! Negativa Bambam negativa. "
@@ -28,7 +41,9 @@ public class AtualizarEstabelecimentoAction extends ActionBase{
 		estabelecimento1.setCodigoEstabelecimento(1);
 		
 		request.setAttribute("estabelecimento", estabelecimento1);
+		*/
 		
+		// Retorna sucesso
 		return mapping.findForward("sucesso");
 	}
 

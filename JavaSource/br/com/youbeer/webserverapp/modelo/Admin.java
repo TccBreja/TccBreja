@@ -9,7 +9,7 @@ package br.com.youbeer.webserverapp.modelo;
 public class Admin {
 	
 	/** Código indentificador do admin */
-	private int cod_admin;
+	private int codAdmin;
 	
 	/** Nome de usuário do admin */
 	private String username;
@@ -18,13 +18,13 @@ public class Admin {
 	private String password;
 
 	/** @return Retorno o atributo cod_admin */
-	public int getCod_admin() {
-		return cod_admin;
+	public int getCodAdmin() {
+		return codAdmin;
 	}
 
 	/** @param cod_admin Atribui o valor ao atributo cod_admin */
-	public void setCod_admin(int cod_admin) {
-		this.cod_admin = cod_admin;
+	public void setCodAdmin(int cod_admin) {
+		this.codAdmin = cod_admin;
 	}
 
 	/** @return Retorno o atributo username */

@@ -118,12 +118,12 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
 	 */
 	@Override
-	public void inserirEstabelecimento(Estabelecimento estabelecimento) {
+	public int inserirEstabelecimento(Estabelecimento estabelecimento) {
 		
 		/** Instância do EstabelecimentoDAO */
 		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
 		
-		estabelecimentoDAO.inserirEstabelecimento(estabelecimento);
+		return estabelecimentoDAO.inserirEstabelecimento(estabelecimento);
 		
 	}
 	
@@ -179,5 +179,21 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
 		
 		return estabelecimentoDAO.buscarPorCodigo(codigoEstabelecimento); 
-	}	
+	}
+	
+	/**
+	 * Grava o caminho da foto do estabelecimento inserido pelo usuário
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
+	 * @param numeroFoto <tt>String</tt> do campo que será populado.
+	 * @param caminhoFoto <tt>String</tt> com o caminho da imagem a ser salva.
+	 */
+	public void inserirFotosEstabelecimento(Estabelecimento estabelecimento, String campoNome, String caminhoFoto){
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
+		estabelecimentoDAO.inserirFotosEstabelecimento(estabelecimento, campoNome, caminhoFoto); 
+	}
+	
+	
 }

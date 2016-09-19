@@ -38,7 +38,7 @@ public class AdminDAO {
 	private Admin popularAdmin(ResultSet rs) throws SQLException {
 		Admin admin = new Admin();
 		
-		admin.setCod_admin(rs.getInt("cod_admin"));
+		admin.setCodAdmin(rs.getInt("cod_admin"));
 		admin.setPassword(rs.getString("senha"));
 		admin.setUsername(rs.getString("email"));
 		

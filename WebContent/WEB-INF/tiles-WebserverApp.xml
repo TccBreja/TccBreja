@@ -62,5 +62,4 @@
     <definition name="listaAtualizadaSucesso" extends="wpp.main">
 		<put name="body" value="/WEB-INF/jsp/listaAtualizadaSucesso.jsp"/>
     </definition>
-  S
 </tiles-definitions>

@@ -212,6 +212,19 @@ $(document).ready(function(){
 			  </div>
 			</div>
 			
+			<!-- Select Basic tipo do estabelecimento -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="tipoEstabelecimento"></label>
+			  <div class="col-md-5">
+			    <select id="tipoEstabelecimento" name="tipoEstabelecimento" class="form-control">
+			      <option value="bar">Bar</option>
+			      <option value="balada">Balada</option>
+			      <option value="conveniencia">Conveniência</option>
+			      <option value="mercado">Mercado</option>
+			    </select>
+			  </div>
+			</div>
+			
 			<!-- Select Basic horario de abertura -->
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="horarioAbertura"></label>

@@ -14,6 +14,9 @@ public class Estabelecimento {
 	/** Código identificador do estabelecimento */
 	private int codigoEstabelecimento;
 	
+	/** Código identificador do administrador do estabelecimento */
+	private int codigoAdmin;
+	
 	/** Nome do estabelecimento */
 	private String nomeEstabelecimento;
 	
@@ -181,6 +184,16 @@ public class Estabelecimento {
 	/** @param codigoEstabelecimento Atribui o valor ao atributo codigoEstabelecimento */
 	public void setCodigoEstabelecimento(int codigoEstabelecimento) {
 		this.codigoEstabelecimento = codigoEstabelecimento;
+	}
+
+	/** @return Retorno o atributo codigoAdmin */
+	public int getCodigoAdmin() {
+		return codigoAdmin;
+	}
+
+	/** @param codigoAdmin Atribui o valor ao atributo codigoAdmin */
+	public void setCodigoAdmin(int codigoAdmin) {
+		this.codigoAdmin = codigoAdmin;
 	}
 
 	/** @return Retorno o atributo listaCervejas */

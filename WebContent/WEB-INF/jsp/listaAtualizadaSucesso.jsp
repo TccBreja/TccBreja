@@ -3,8 +3,10 @@
 <div class="container pt50 pb10 fundoHome">
     <div class="row">
    	 	<fieldset>
+			<div class="alert alert-success">
+			<strong>Lista atualizada com sucesso!</strong>
+			</div>
     	 	<img src="estaticos/imagens/hommer.ico" />
-    		LISTA ATUALIZADA COM SUCESSO
   		</fieldset>	
 	</div>
 </div>

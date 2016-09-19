@@ -3,6 +3,12 @@
                                "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
 
 <struts-config>	
+	
+	<!-- Form beans -->
+	<form-beans>
+		<form-bean name="FileUpload" type="br.com.youbeer.webserverapp.apresentacao.UploadForm"/>
+	</form-beans>	
+
 	<!-- Global Forwards -->
 	<global-forwards>
     </global-forwards>

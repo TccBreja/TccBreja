@@ -31,7 +31,6 @@ public class SalvarListaCervejaEstabelecimentoAction extends ActionBase{
 		
 		// Obtém a nova lista de cerveja pelo request 
 		int index = Integer.parseInt(request.getParameter("index"));
-		
 		for (int i=1; i<=index; i++) {
 			
 			// Obtém os dados do request

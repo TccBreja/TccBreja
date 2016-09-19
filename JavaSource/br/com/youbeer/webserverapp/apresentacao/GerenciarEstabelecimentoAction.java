@@ -39,7 +39,6 @@ public class GerenciarEstabelecimentoAction extends ActionBase{
 		
 		// Obtém a lista de estabelecimentos do usuário
 		List<Estabelecimento> estabelecimentos = new ArrayList<Estabelecimento>();
-		
 		if (service.isExisteEstabelecimento(admin)) {
 			estabelecimentos = service.listarEstabelecimentos(admin);
 		}
