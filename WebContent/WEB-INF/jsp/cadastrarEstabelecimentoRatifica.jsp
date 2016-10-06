@@ -6,12 +6,9 @@
 
 <div class="container pt50 pb10 fundoHome">
 	<div class="alert alert-success">
-		<% 	if (request.getParameter("controleCerveja") != null) { %>
-			<strong>Estabelecimento atualizado com sucesso!</strong>
-		<% } else { %>
-			<strong>Estabelecimento cadastrado com sucesso!</strong>
-		<% } %>
+		<strong>Estabelecimento cadastrado com sucesso!</strong>
 	</div>
+	<img src="estaticos/imagens/hommer.ico" />
 	<div>
 		Aqui é Body Builder Ipsum PORRA! Aqui nóis constrói fibra, não é água com músculo. É esse que a gente quer, é ele que nóis vamo buscar. Sabe o que é isso daí? Trapézio descendente é o nome disso aí. Negativa Bambam negativa. AHHHHHHHHHHHHHHHHHHHHHH..., porra! É 37 anos caralho!
 		

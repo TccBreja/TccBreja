@@ -155,7 +155,7 @@ $(document).ready(function(){
 </script>
 <div class="container pt50 pb10 fundoHome">
     <div class="row">
-		<form class="form-horizontal pr300" action="adicionarFotosEstabelecimento.do" id="adicionarFotosEstabelecimentoForm">
+		<form class="form-horizontal pr300" action="adicionarFotosEstabelecimento.do" id="adicionarFotosEstabelecimentoForm" method="post">
 		<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
 		<input type='hidden' name="controleCerveja" id="controleCerveja" value="atualizarEstabelecimento"/>
 		<input type='hidden' name="codigoEstabelecimento" value="<%=request.getParameter("codigoEstabelecimento")%>" />

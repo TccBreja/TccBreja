@@ -18,44 +18,51 @@ public class AdicionarFotosEstabelecimentoAction extends ActionBase{
 	@Override
 	protected ActionForward executar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
 		
-		// Instância do service
-		IYoubeerService service = new YoubeerServiceImpl();
-		
-		// Obtém dados da sessão
-		String username = String.valueOf(request.getSession().getAttribute("username"));
-				
-		// Prepara o objeto de entrada para obter dados do admin
-		Admin admin = new Admin();
-		admin.setUsername(username);
-				
-		// Faz a requisição dos dados do admin
-		admin = service.obterDadosAdmin(admin);
-		
-		// Prepara o objeto de entrada para salvar o estabelecimento
-		Estabelecimento estabelecimento = new Estabelecimento();
-		estabelecimento.setNomeEstabelecimento(request.getParameter("nomeEstabelecimento"));
-		estabelecimento.setEndereco(request.getParameter("endereco"));
-		estabelecimento.setSite(request.getParameter("site"));
-		estabelecimento.setTelefone(request.getParameter("telefone"));
-		estabelecimento.setTipoEstabelecimento(request.getParameter("tipoEstabelecimento"));
-		estabelecimento.setHorarioAbertura(request.getParameter("horarioAbertura"));
-		estabelecimento.setHorarioFechamento(request.getParameter("horarioFechamento"));
-		estabelecimento.setDescricao(request.getParameter("descricao"));
-		estabelecimento.setCodigoAdmin(admin.getCodAdmin());
-		
-		// Codigo do estabelecimento
-		int codigoEstabelecimento;
-		
-		// Verifica o tipo de servico 
-		if (StringUtils.isEmpty(request.getParameter("codigoEstabelecimento"))) {
-			codigoEstabelecimento = service.inserirEstabelecimento(estabelecimento);
+		// Verfica se não é um reload de página
+		if (StringUtils.isEmpty(request.getParameter("reload"))) {
+			// Instância do service
+			IYoubeerService service = new YoubeerServiceImpl();
+			
+			// Obtém dados da sessão
+			String username = String.valueOf(request.getSession().getAttribute("username"));
+					
+			// Prepara o objeto de entrada para obter dados do admin
+			Admin admin = new Admin();
+			admin.setUsername(username);
+					
+			// Faz a requisição dos dados do admin
+			admin = service.obterDadosAdmin(admin);
+			
+			// Prepara o objeto de entrada para salvar o estabelecimento
+			Estabelecimento estabelecimento = new Estabelecimento();
+			estabelecimento.setNomeEstabelecimento(request.getParameter("nomeEstabelecimento"));
+			estabelecimento.setEndereco(request.getParameter("endereco"));
+			estabelecimento.setSite(request.getParameter("site"));
+			estabelecimento.setTelefone(request.getParameter("telefone"));
+			estabelecimento.setTipoEstabelecimento(request.getParameter("tipoEstabelecimento"));
+			estabelecimento.setHorarioAbertura(request.getParameter("horarioAbertura"));
+			estabelecimento.setHorarioFechamento(request.getParameter("horarioFechamento"));
+			estabelecimento.setDescricao(request.getParameter("descricao"));
+			estabelecimento.setCodigoAdmin(admin.getCodAdmin());
+			
+			// Codigo do estabelecimento
+			int codigoEstabelecimento = 0;
+			
+			// Verifica o tipo de servico 
+			if (StringUtils.isEmpty(request.getParameter("codigoEstabelecimento"))) {
+				codigoEstabelecimento = service.inserirEstabelecimento(estabelecimento);
+			} else {
+				codigoEstabelecimento = Integer.parseInt((request.getParameter("codigoEstabelecimento")));
+				estabelecimento.setCodigoEstabelecimento(codigoEstabelecimento);
+				service.alterarInformacoesEstabelecimento(estabelecimento);
+			}
+			
+			// Seta codigo do estabelecimento no request
+			request.setAttribute("codigoEstabelecimento", codigoEstabelecimento);
 		} else {
-			service.alterarInformacoesEstabelecimento(estabelecimento);
-			codigoEstabelecimento = Integer.parseInt((request.getParameter("codigoEstabelecimento")));
+			// É um upload de foto
+			request.setAttribute("codigoEstabelecimento", request.getParameter("codigoEstabelecimento"));
 		}
-		
-		// Seta codigo do estabelecimento no request
-		request.setAttribute("codigoEstabelecimento", codigoEstabelecimento);
 		
 		// Retorna sucesso	
 		return mapping.findForward("sucesso");

@@ -43,9 +43,14 @@
 		<put name="body" value="/WEB-INF/jsp/adicionarFotosEstabelecimento.jsp"/>
     </definition>
     
-    <!--Chamada da view de adicionar fotos -->
-    <definition name="cadastrarEstabelecimentoRatifica" extends="wpp.main">
+    <!--Chamada de estabelecimento cadastrado com sucesso -->
+    <definition name="cadastrarEstabelecimentoSucesso" extends="wpp.main">
 		<put name="body" value="/WEB-INF/jsp/cadastrarEstabelecimentoRatifica.jsp"/>
+    </definition>
+    
+     <!--Chamada de estabelecimento atualizado com sucesso -->
+    <definition name="atualizarEstabelecimentoSucesso" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/estabelecimentoAtualizadoSucesso.jsp"/>
     </definition>
     
     <!--Chamada da view de cadastrar Cervejas -->

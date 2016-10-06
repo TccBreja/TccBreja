@@ -74,7 +74,8 @@
                 name="HomeAction"
                 scope="request"
                 validate="false">
-            <forward name="sucesso" path="cadastrarEstabelecimentoRatifica" />
+            <forward name="sucessoCadastro" path="cadastrarEstabelecimentoSucesso" />
+            <forward name="sucessoAtualizacao" path="atualizarEstabelecimentoSucesso" />
         </action>
         
         <!-- Action cadastrar cervejas -->
@@ -86,7 +87,7 @@
             <forward name="sucesso" path="cadastrarCervejas" />
         </action>
         
-        <!-- Action cadastrar cervejas -->
+        <!-- Action salvar lista de cervejas do estabelecimentos -->
     	<action path="/salvarListaCervejaEstabelecimento"
                 type="br.com.youbeer.webserverapp.apresentacao.SalvarListaCervejaEstabelecimentoAction"
                 name="HomeAction"

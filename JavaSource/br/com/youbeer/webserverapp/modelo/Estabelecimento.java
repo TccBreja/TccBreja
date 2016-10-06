@@ -1,5 +1,6 @@
 package br.com.youbeer.webserverapp.modelo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,19 +41,7 @@ public class Estabelecimento {
 	
 	/** Descrição do estabelecimento */
 	private String descricao;
-	
-	/** Foto um estabelecimento */
-	private String fotoUm;
-	
-	/** Foto dois estabelecimento */
-	private String fotoDois;
-	
-	/** Foto três estabelecimento */
-	private String fotoTres;
-	
-	/** Foto quatro estabelecimento */
-	private String fotoQuatro;
-	
+
 	/** Lista de cervejas do estabelecimento */
 	List<Cerveja> listaCervejas = new ArrayList<Cerveja>();
 
@@ -124,46 +113,6 @@ public class Estabelecimento {
 	/** @param descricao Atribui o valor ao atributo descricao */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	/** @return Retorno o atributo fotoUm */
-	public String getFotoUm() {
-		return fotoUm;
-	}
-
-	/** @param fotoUm Atribui o valor ao atributo fotoUm */
-	public void setFotoUm(String fotoUm) {
-		this.fotoUm = fotoUm;
-	}
-
-	/** @return Retorno o atributo fotoDois */
-	public String getFotoDois() {
-		return fotoDois;
-	}
-
-	/** @param fotoDois Atribui o valor ao atributo fotoDois */
-	public void setFotoDois(String fotoDois) {
-		this.fotoDois = fotoDois;
-	}
-
-	/** @return Retorno o atributo fotoTres */
-	public String getFotoTres() {
-		return fotoTres;
-	}
-
-	/** @param fotoTres Atribui o valor ao atributo fotoTres */
-	public void setFotoTres(String fotoTres) {
-		this.fotoTres = fotoTres;
-	}
-
-	/** @return Retorno o atributo fotoQuatro */
-	public String getFotoQuatro() {
-		return fotoQuatro;
-	}
-
-	/** @param fotoQuatro Atribui o valor ao atributo fotoQuatro */
-	public void setFotoQuatro(String fotoQuatro) {
-		this.fotoQuatro = fotoQuatro;
 	}
 
 	/** @return Retorno o atributo tipoEstabelecimento */

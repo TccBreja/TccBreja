@@ -1,5 +1,10 @@
 package br.com.youbeer.webserverapp.jdbc.dao;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,12 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Statement;
+import org.apache.commons.fileupload.FileItem;
 
 import br.com.youbeer.webserverapp.jdbc.ConnectionFactory;
 import br.com.youbeer.webserverapp.modelo.Admin;
 import br.com.youbeer.webserverapp.modelo.Cerveja;
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
+
+import com.mysql.jdbc.Statement;
 
 /**
  * Classe EstabelecimentoDAO. <br>
@@ -42,6 +49,7 @@ public class EstabelecimentoDAO {
 	 * Popula o objeto Estabelecimento
 	 * @param rs Objeto <tt>ResultSet</tt>.
 	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 * @throws IOException 
 	 */
 	private void popularEstabelecimento(ResultSet rs, Estabelecimento estabelecimento) throws SQLException {
 		estabelecimento.setCodigoEstabelecimento(rs.getInt("cod_estabelecimento"));
@@ -53,10 +61,6 @@ public class EstabelecimentoDAO {
 		estabelecimento.setTipoEstabelecimento(rs.getString("tipo_estabelecimento"));
 		estabelecimento.setHorarioAbertura(rs.getString("hora_abrir"));
 		estabelecimento.setHorarioFechamento(rs.getString("hora_fechar"));
-		estabelecimento.setFotoUm(rs.getString("foto_um"));
-		estabelecimento.setFotoDois(rs.getString("foto_dois"));
-		estabelecimento.setFotoTres(rs.getString("foto_tres"));
-		estabelecimento.setFotoQuatro(rs.getString("foto_quatro"));
 	}
 	
 	/**
@@ -151,23 +155,79 @@ public class EstabelecimentoDAO {
 	}
 	
 	/**
-	 * Insere as fotos em estabelecimento do banco
-	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
-	 * @param numeroFoto <tt>String</tt> do campo que será populado.
-	 * @param caminhoFoto <tt>String</tt> com o caminho da imagem a ser salva.
-	 */
-	public void inserirFotosEstabelecimento(Estabelecimento estabelecimento, String campoNome, String caminhoFoto) {
+	 * Recupera as fotos de um estabelecimento do banco
+	 * @param codigoEstabelecimento <tt>int</tt>.
+	 * @return array de bites da imagem buscado <tt>byte[]</tt> 
+	 */ 
+	public byte[] recuperarFotosEstabelecimento(int codigoEstabelecimento, String campoFoto) {
 		
-		// Query
-		String sql = "UPDATE estabelecimento SET " + campoNome 
+		byte[] imagem = new byte[0];
+		
+		try {
+			PreparedStatement stmt = this.connection
+							.prepareStatement("SELECT " + campoFoto + " FROM estabelecimento "
+							+ "WHERE cod_estabelecimento = ?");
+			
+			stmt.setInt(1, codigoEstabelecimento);
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {				
+				imagem = rs.getBytes(campoFoto);
+			} else {
+				//imagem =  rs.getBytes();
+			}
+			rs.close();
+			stmt.close();
+			connection.close();
+			return imagem;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * Insere as fotos em estabelecimento do banco
+	 * @param codigoEstabelecimento <tt>int</tt>.
+	 * @param item <tt>FileItem</tt> contendo a foto a ser salva.
+	 */
+	public void inserirFotosEstabelecimento(int codigoEstabelecimento, FileItem item) {
+		
+		byte[] imagem = new byte[0];
+
+		String sql = "UPDATE estabelecimento SET " + item.getFieldName() 
 						+ "= ? "
 						+ "WHERE cod_estabelecimento = ?"; 
 		PreparedStatement stmt;
 		
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setString(1, caminhoFoto);
-			stmt.setInt(2, estabelecimento.getCodigoEstabelecimento());
+			stmt.setBinaryStream(1, item.getInputStream(),(int) item.getSize());
+			stmt.setInt(2, codigoEstabelecimento);
+			
+			// Executa
+			stmt.execute();
+			
+			stmt.close();
+			connection.close();
+		
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}  catch (IOException e) {
+			throw new RuntimeException(e);
+		}	
+	}
+	
+	/**
+	 * Remove cervejas do estabelecimento do banco
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 */
+	public void removerCervejasEstabelecimento(Estabelecimento estabelecimento) {
+		String sql = "DELETE FROM lista_cervejas_estabelecimento WHERE cod_estabelecimento = ?";
+		PreparedStatement stmt;
+		
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, estabelecimento.getCodigoEstabelecimento());
 			stmt.execute();
 			stmt.close();
 			connection.close();
@@ -216,6 +276,26 @@ public class EstabelecimentoDAO {
 			stmt.setString(7, estabelecimento.getHorarioAbertura());
 			stmt.setString(8, estabelecimento.getHorarioFechamento());
 			stmt.setInt(9, estabelecimento.getCodigoEstabelecimento());
+			stmt.execute();
+			stmt.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * Exclui o estabelecimento de acordo com seu código no banco
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 */
+	public void exluirEstabelecimento(Estabelecimento estabelecimento) {
+		String sql = "DELETE FROM estabelecimento "
+						+ "WHERE cod_estabelecimento = ?";
+		PreparedStatement stmt;
+		
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(0, estabelecimento.getCodigoEstabelecimento());
 			stmt.execute();
 			stmt.close();
 			connection.close();

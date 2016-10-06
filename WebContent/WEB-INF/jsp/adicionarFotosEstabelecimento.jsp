@@ -1,9 +1,73 @@
 <jsp:include page="common/cabecalhoMenu.jsp"></jsp:include>
 
 <script>
+	$(document).ready(function() {
+		// Salva a imagem no banco no momento do onchange
+		$('input[type="file"]').on('change', uploadFile);
+	})
+	
+	// Faz o submit no form
 	function submitForm(){
+		$("[name='cadastrarEstabelecimentoRatificaForm']").removeAttr('enctype');
 		$("[name='cadastrarEstabelecimentoRatificaForm']").submit();
 	}
+	
+	// Função que faz o upload dos arquivos
+	function uploadFile(event){
+	    event.stopPropagation(); 
+	    event.preventDefault(); 
+	    var files = event.target.files; 
+	   	 	codigoEstabelecimento = <%=request.getAttribute("codigoEstabelecimento")%>
+	    	data = new FormData();
+	   
+	    data.append("codigoEstabelecimento",codigoEstabelecimento);	 
+	    $.each(files, function(key, value){
+	        data.append(event.target.name, value);
+	    });
+	    	
+	    postFilesData(data); 
+	 }
+	
+	// Ajax que direciona para a servlet de salvar imagem
+	function postFilesData(data){
+		$.ajax({
+		url:'/WebServerApp/SalvarImagemServlet', 
+		      type: 'POST',
+		      data: data,
+		      cache: false,
+		      dataType: 'json',
+		      processData: false, 
+		      contentType: false, 
+		      success: function(data){
+		    	  if(data.retorno = "sucesso"){
+		    		 $("#reloadForm").submit();
+		    	  }
+		      },
+		      error: function(jqXHR, textStatus, errorThrown){
+		          console.log('ERRORS: ' + textStatus);
+		      }
+		 });
+	}
+	
+	// Função com chamada ajax para servlet valida cnpjcpf
+	function exibirImagemServlet(ajaxParam1, ajaxParam2){
+		$.ajax({
+	        type:"POST", 
+			url:'/WebServerApp/ExibirImagemServlet', 
+	        data:'codigoEstabelecimento='+ajaxParam1+"&"+
+	        	 'campoFoto='+ajaxParam2,
+	        dataType:"json",
+	        success: function(data) { 
+	        	//$('#img1').find('img').attr('src',data);
+	        	//document.getElementById(ajaxParam2);
+	        },
+	        error: function(req,status) {
+	        	var teste;
+	        	 teste =  '2';
+	        }
+		});  
+	}
+	
 </script>
 
 <% 	if (request.getParameter("controleCerveja") != null) { %>
@@ -22,8 +86,8 @@
 		<input type='hidden' name="codigoEstabelecimento" value="<%=request.getAttribute("codigoEstabelecimento") %>" />
 		<div class="row">
 			<div class="col-xs-6 col-md-4">
-				<a href="#" class="thumbnail">
-					<img src="estaticos/imagens/bar_exemplo.jpg" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
+				<a href="#" class="thumbnail">				
+					<img src="ExibirImagemServlet?codigoEstabelecimento=<%=request.getAttribute("codigoEstabelecimento")%>&campoFoto=foto_um" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;"" id="img1">			
 				</a>
 				<!-- File Button --> 
 				<div class="col-md-4 pb10">
@@ -43,18 +107,18 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6 col-md-4">
+			<div class="col-xs-6 col-md-4" style="padding-bottom: 20px;">
 				<a href="#" class="thumbnail">
-					<img src="estaticos/imagens/bar_exemplo.jpg" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
+					<img src="ExibirImagemServlet?codigoEstabelecimento=<%=request.getAttribute("codigoEstabelecimento")%>&campoFoto=foto_dois" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
 				</a>
 				<!-- File Button --> 
 				<div class="col-md-4 pb10">
-					<input id="foto_dois" name="foto_dois" class="input-file" type="file" accept="image/*">
+					<input id="foto_dois" name="foto_dois" class="input-file" type="file" accept="image/*"">
 				</div>
 			</div>  
 			<div class="col-xs-6 col-md-4">
 				<a href="#" class="thumbnail">
-					<img src="estaticos/imagens/bar_exemplo.jpg" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
+					<img src="ExibirImagemServlet?codigoEstabelecimento=<%=request.getAttribute("codigoEstabelecimento")%>&campoFoto=foto_tres" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
 				</a>
 				<div class="col-md-4 pb10">
 					<input id="foto_tres" name="foto_tres" class="input-file" type="file" accept="image/*">
@@ -62,7 +126,7 @@
 			</div>  
 			<div class="col-xs-6 col-md-4">
 				<a href="#" class="thumbnail">
-					<img src="estaticos/imagens/bar_exemplo.jpg" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
+					<img src="ExibirImagemServlet?codigoEstabelecimento=<%=request.getAttribute("codigoEstabelecimento")%>&campoFoto=foto_quatro" alt="100%x180" data-src="holder.js/100%x180" style="height: 180px; width: 100%; display: block;">
 				</a>
 				<div class="col-md-4 pb10">
 					<input id="foto_quatro" name="foto_quatro" class="input-file" type="file" accept="image/*">
@@ -78,3 +142,14 @@
 		</div>
 	</form>
 </div>
+
+<form action="adicionarFotosEstabelecimento.do" id="reloadForm" name="reloadForm" method="post">
+	<% 	if (request.getParameter("controleCerveja") != null) { %>
+		<input type='hidden' name="controleCerveja" id="controleCerveja" value="atualizarEstabelecimento"/>
+		<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
+	<% } else { %>
+		<input type='hidden' name="controleMenu" id="controleMenu" value="cadastrarEstabelecimento"/>
+	<% } %>
+	<input type='hidden' name="codigoEstabelecimento" id="codigoEstabelecimento" value="<%=request.getAttribute("codigoEstabelecimento")%>"/>
+	<input type='hidden' name="reload" id="reload" value="true"/>
+</form>	

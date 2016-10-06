@@ -164,7 +164,7 @@
 											<td>
 												<div class="input-group">
 													<div class="input-group-addon">$</div>
-													<input type="text" name="valorCerveja<%=index%>" class="form-control dinheiro" value="<bean:write name="listaCervejasEstabelecimento" property="valor"/>">
+													<input type="text" name="valorCerveja<%=index%>" class="form-control dinheiro" maxlength="6" value="<bean:write name="listaCervejasEstabelecimento" property="valor"/>">
 												</div>
 											</td>
 										</tr>				
@@ -193,7 +193,7 @@
 										<td>
 											<div class="input-group">
 												<div class="input-group-addon">$</div>
-												<input type="text" name="valorCerveja<%=index%>" class="form-control dinheiro">
+												<input type="text" name="valorCerveja<%=index%>" class="form-control dinheiro" maxlength="6" disabled>
 											</div>
 										</td>
 									</tr>
@@ -249,7 +249,7 @@
 						+ "<select id='listaCervejasSelect" + index + "' name='listaCervejasSelect" + index + "' class='form-control' onchange='desabilitaOption(this)'>"
 						+  options	
 						+ "</select></td><td><div class='input-group'><div class='input-group-addon'>$</div>"
-						+ "<input type='text' name='valorCerveja" + index +"' class='form-control dinheiro' onkeyup='removerErro(this);' disabled></div></td></tr>"
+						+ "<input type='text' name='valorCerveja" + index +"' class='form-control dinheiro' onkeyup='removerErro(this);'  maxlength='6' disabled></div></td></tr>"
 		
 		// Adiciona linha
 	    $("#tratamentoListaAdd").append(appendLinha);

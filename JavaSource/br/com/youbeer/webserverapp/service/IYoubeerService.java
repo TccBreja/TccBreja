@@ -2,6 +2,8 @@ package br.com.youbeer.webserverapp.service;
 
 import java.util.List;
 
+import org.apache.commons.fileupload.FileItem;
+
 import br.com.youbeer.webserverapp.modelo.Admin;
 import br.com.youbeer.webserverapp.modelo.Cerveja;
 import br.com.youbeer.webserverapp.modelo.Estabelecimento;
@@ -76,6 +78,12 @@ public interface IYoubeerService {
 	public void removerEstabelecimento(Estabelecimento estabelecimento);
 	
 	/**
+	 * Remove cervejas de um estabelecimento do banco
+	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
+	 */
+	public void removerCervejasEstabelecimento(Estabelecimento estabelecimento);
+	
+	/**
 	 * Altera os dados do estabelecimento no banco
 	 * @param estabelecimento Objeto <tt>Estabelecimento</tt>.
 	 */
@@ -96,11 +104,18 @@ public interface IYoubeerService {
 	public Estabelecimento buscarPorCodigo(int codigoEstabelecimento);
 	
 	/**
-	 * Grava o caminho da foto do estabelecimento inserido pelo usuário
-	 * @param estabelecimento Objeto <tt>Estabelecimento</tt> populado.
-	 * @param numeroFoto <tt>String</tt> do campo que será populado.
-	 * @param caminhoFoto <tt>String</tt> com o caminho da imagem a ser salva.
+	 * Insere as fotos em estabelecimento do banco
+	 * @param codigoEstabelecimento <tt>int</tt>.
+	 * @param item <tt>FileItem</tt> contendo a foto a ser salva.
+	 * @return array de bites da imagem inserida <tt>byte[]</tt> 
 	 */
-	public void inserirFotosEstabelecimento(Estabelecimento estabelecimento, String campoNome, String caminhoFoto);
+	public void inserirFotosEstabelecimento(int codigoEstabelecimento, FileItem item);
+	
+	/**
+	 * Recupera as fotos de um estabelecimento do banco
+	 * @param codigoEstabelecimento <tt>int</tt>.
+	 * @return array de bites da imagem buscado <tt>byte[]</tt> 
+	 */ 
+	public byte[] recuperarFotosEstabelecimento(int codigoEstabelecimento, String campoFoto);
 		
 }
