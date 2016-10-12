@@ -10,7 +10,8 @@
               
 <script>
 	$(document).ready(function() {
-	    // Function para o efeito de background
+	    
+		// Function para o efeito de background
 		$(document).mousemove(function(event) {
 	        TweenLite.to($("body"), 
 	        .5, {

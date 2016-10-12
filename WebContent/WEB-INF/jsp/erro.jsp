@@ -10,14 +10,13 @@
 </style>
 
 <div class="container pb10 fundoHome" style="padding-top: 20px;">
-	<img src="estaticos/imagens/hommer.ico" />
+	<img src="estaticos/imagens/homer-doh.png" />
 	<div class="title">
-		<strong>Lista de cervejas do <%=request.getAttribute("nomeEstabelecimento") %> atualizada com sucesso!</strong>
+		<strong>Ocorreu um erro no sistema!</strong>
 	</div>
 	
 	<div id="info" class="textbody" style="padding-left: 200px;padding-right: 200px;text-align: center;">
-		Parabéns, a lista de cerveja do seu estabelecimento foi atualizada.
-		Caso deseja atualizar as informações ou foto do <%=request.getAttribute("nomeEstabelecimento") %> selecione a opção "Atualizar Estabelecimento" no menu superior.
+		Tente realizar a operação novamente, caso o erro persista entre em contato com o administrador.
 	</div>	
 		
 </div>

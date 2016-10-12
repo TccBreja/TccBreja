@@ -49,6 +49,7 @@ public class CadastrarCervejasAction extends ActionBase{
 		*/
 		
 		// Seta atributos de request
+		request.setAttribute("nomeEstabelecimento", estabelecimento.getNomeEstabelecimento());
 		request.setAttribute("listaCervejasEstabelecimento", estabelecimento.getListaCervejas());
 		request.setAttribute("listaCervejasBanco", cervejas);
 		request.setAttribute("appendListaCervejas", criaAppendLista(estabelecimento.getListaCervejas()));

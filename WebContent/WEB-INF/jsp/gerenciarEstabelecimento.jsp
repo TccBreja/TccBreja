@@ -3,12 +3,12 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <jsp:include page="common/cabecalhoMenu.jsp"></jsp:include>
 <style>
-	#titulo{ background-color: #df8e01!important;}
+	.focoSim {background-color: rgb(183, 182, 182);}
 </style>
 	
 <script>
 	$(document).ready(function() {
-	
+		
 	// Cancela o submit do form no click do lixinho
 	$('.btn-danger').click(function() {
 		$(this).closest('a').attr('onclick','return false');
@@ -16,6 +16,14 @@
 		$('.modal-body').find('p').text("Tem certeza que deseja excluir o estabelecimento "+ nomeEstabelecimento + "?");	
 		var codigoEstabelecimento = $(this).parent().find('.col-md-6').find('p')[0].innerHTML;
 		$('#codigoEstabelecimentoControle').val(codigoEstabelecimento);
+	});
+	
+	$("#btnSim").hover(function() {
+		if($(this).hasClass('focoSim')) {
+			$(this).removeClass('focoSim');
+		} else {
+			$(this).addClass('focoSim');
+		}
 	});
 	
 	$('#btnNao').click(function() {
@@ -49,45 +57,46 @@
 
 <div class="container pt50 pb10 fundoHome">
 	<div class="row">
+		<div class="title" style="text-align: center; margin-bottom: 40px;">Escolha um dos estabelecimentos abaixo clicando diretamente sobre suas informações.</div>
 		<div class="list-group">
 		 	<logic:notEmpty name="listaEstabelecimentos">
-		 		<a href="#" class="list-group-item active" id="titulo">
-					<h4 class="list-group-item-heading">Lista de Estabelecimentos Cadastrados</h4>
-				</a>
 				<logic:iterate id="listaEstabelecimentos" name="listaEstabelecimentos">
-					<a href="#" class="list-group-item" onclick="submitForm(<bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/>)">
-						<div class="row">
-			  				<div class="col-md-4">
-								<img src="ExibirImagemServlet?codigoEstabelecimento=<bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/>&campoFoto=foto_um" alt="100%x180" style="height: 180px; width: 100%; display: block;">
-							</div>
-		 				 	<div class="col-md-8">
-				  	 	 		<div class="col-md-6">
-				  	 	 			<p style="display : none" id="idEstabelecimento"><bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/></p>
-				  	 	 			<input type='hidden' name="codigoEstabelecimentoControle" id="codigoEstabelecimentoControle" value=""/>
-									<p class="list-group-item-text"><strong>Nome Estabelecimento</strong> : <bean:write name="listaEstabelecimentos" property="nomeEstabelecimento"/></p>
-									<p class="list-group-item-text"><strong>Endereço</strong> : <bean:write name="listaEstabelecimentos" property="endereco"/></p>
-									<p class="list-group-item-text"><strong>Telefone</strong> : <bean:write name="listaEstabelecimentos" property="telefone"/></p>
-							  	</div>
-			  	  	  			<div class="col-md-6">
-									<p class="list-group-item-text"><strong>Site</strong> : <bean:write name="listaEstabelecimentos" property="site"/></p>
-									<p class="list-group-item-text"><strong>Horario de Abertura / Fechamento</strong> : <bean:write name="listaEstabelecimentos" property="horarioAbertura"/> / <bean:write name="listaEstabelecimentos" property="horarioFechamento"/></p>
-									<p class="list-group-item-text"><strong>Tipo de Estabelecimento</strong> : <bean:write name="listaEstabelecimentos" property="tipoEstabelecimento"/></p>
-					 		 	</div>
-						  		<div class="col-md-12 pt40">
-							  		<p class="list-group-item-text"><strong>Descrição</strong> : <bean:write name="listaEstabelecimentos" property="descricao"/></p>
-							  	</div>
-							</div>
-							<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target=".bd-example-modal-sm" style="float: right; margin-top: 20px; margin-right: 20px;">
-  								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-							</button>
+					<div id="itemLista">
+						<div id="titulo" style="border-radius: 10px 10px 0px 0px;">
+							<div class="title"><bean:write name="listaEstabelecimentos" property="nomeEstabelecimento"/></div>
 						</div>
-					</a>
+						<a href="#" class="list-group-item" onclick="submitForm(<bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/>)" style="margin-bottom: 20px; border-radius: 0px 0px 10px 10px;">
+							<div class="row">
+				  				<div class="col-md-4">
+									<img src="ExibirImagemServlet?codigoEstabelecimento=<bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/>&campoFoto=foto_um" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+								</div>
+			 				 	<div class="col-md-8">
+					  	 	 		<div class="col-md-6" style="text-align: justify;">
+					  	 	 			<p style="display : none" id="idEstabelecimento"><bean:write name="listaEstabelecimentos" property="codigoEstabelecimento"/></p>
+					  	 	 			<input type='hidden' name="codigoEstabelecimentoControle" id="codigoEstabelecimentoControle" value=""/>
+										<p class="list-group-item-text"><strong>Nome do Estabelecimento</strong> : <bean:write name="listaEstabelecimentos" property="nomeEstabelecimento"/></p>
+										<p class="list-group-item-text"><strong>Endereço</strong> : <bean:write name="listaEstabelecimentos" property="endereco"/></p>
+										<p class="list-group-item-text"><strong>Telefone</strong> : <bean:write name="listaEstabelecimentos" property="telefone"/></p>
+								  	</div>
+				  	  	  			<div class="col-md-6" style="text-align: justify;">
+										<p class="list-group-item-text"><strong>Site</strong> : <bean:write name="listaEstabelecimentos" property="site"/></p>
+										<p class="list-group-item-text"><strong>Horario de Abertura / Fechamento</strong> : <bean:write name="listaEstabelecimentos" property="horarioAbertura"/> / <bean:write name="listaEstabelecimentos" property="horarioFechamento"/></p>
+										<p class="list-group-item-text"><strong>Tipo de Estabelecimento</strong> : <bean:write name="listaEstabelecimentos" property="tipoEstabelecimento"/></p>
+						 		 	</div>
+							  		<div class="col-md-12 pt40" style="text-align: justify;">
+								  		<p class="list-group-item-text"><strong>Descrição</strong> : <bean:write name="listaEstabelecimentos" property="descricao"/></p>
+								  	</div>
+								</div>
+								<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target=".bd-example-modal-sm" style="float: right; margin-top: 20px; margin-right: 20px;">
+	  								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</div>
+						</a>
+					</div>
 				</logic:iterate>
 			</logic:notEmpty>
 			<logic:empty name="listaEstabelecimentos">
-				<a href="#" class="list-group-item active" id="titulo">
-					<h4 class="list-group-item-heading">Você não possui estabelecimento cadastrados</h4>
-				</a>
+				<div class="title">Você não possui estabelecimento cadastrados</div>
 			</logic:empty>
 		</div>
 	</div>
@@ -107,7 +116,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSim">Sim</button>
-        <button type="button" class="btn btn-primary" id="btnNao">Não</button>
+        <button type="button" class="btn btn-primary btn-warning" id="btnNao">Não</button>
       </div>
     </div>
   </div>

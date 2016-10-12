@@ -173,9 +173,8 @@ public class EstabelecimentoDAO {
 			
 			if (rs.next()) {				
 				imagem = rs.getBytes(campoFoto);
-			} else {
-				//imagem =  rs.getBytes();
 			}
+			
 			rs.close();
 			stmt.close();
 			connection.close();

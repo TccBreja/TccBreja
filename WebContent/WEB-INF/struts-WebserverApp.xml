@@ -41,7 +41,7 @@
             <forward name="sucesso" path="cadastrarEstabelecimento" />
         </action>
         
-        <!-- Action de Cadastro de Contato -->
+        <!-- Action de Contato -->
     	<action path="/contato"
                 type="br.com.youbeer.webserverapp.apresentacao.ContatoAction"
                 name="HomeAction"
@@ -49,7 +49,7 @@
                 validate="false">
             <forward name="sucesso" path="contato" />
         </action>
-        
+          
         <!-- Action de Gerenciar Estabelecimento -->
     	<action path="/gerenciarEstabelecimento"
                 type="br.com.youbeer.webserverapp.apresentacao.GerenciarEstabelecimentoAction"

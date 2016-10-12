@@ -67,6 +67,7 @@ public class ExcluirEstabelecimentoServlet extends HttpServlet {
 		
 		//Remove as cervejas relacionadas ao estabelecimento
 		service.removerCervejasEstabelecimento(estabelecimento);
+		
 		//Remove os estabelecimentos
 		service.removerEstabelecimento(estabelecimento);
 		

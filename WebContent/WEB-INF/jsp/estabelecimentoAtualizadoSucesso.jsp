@@ -1,12 +1,23 @@
-<jsp:include page="common/cabecalhoMenu.jsp"></jsp:include>
 <link href="estaticos/css/cadastrarCervejas.css" rel="stylesheet">
-<div class="container pt50 pb10 fundoHome">
-    <div class="row">
-   	 	<fieldset>
-			<div class="alert alert-success">
-			<strong>Estabelecimento atualizado com sucesso!</strong>
-			</div>
-    	 	<img src="estaticos/imagens/hommer.ico" />
-  		</fieldset>	
+
+<jsp:include page="common/cabecalhoMenu.jsp"></jsp:include>
+<jsp:include page="common/cabecalhoCervejas.jsp"></jsp:include>
+
+<style>
+	.textbody{
+		font-size: 24px;
+	}
+</style>
+
+<div class="container pb10 fundoHome" style="padding-top: 20px;">
+	<img src="estaticos/imagens/hommer.ico" />
+	<div class="title">
+		<strong><%=request.getAttribute("nomeEstabelecimento") %> atualizado com sucesso!</strong>
 	</div>
+	
+	<div id="info" class="textbody" style="padding-left: 200px;padding-right: 200px;text-align: center;">
+		Parabéns, seu estabelecimento foi atualizado no sistema.
+		Confira a alteração clicando em "Gerenciar Estabelecimentos" no menu superior da página.
+	</div>	
+		
 </div>

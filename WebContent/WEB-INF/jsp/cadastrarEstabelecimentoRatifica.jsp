@@ -1,26 +1,26 @@
 <jsp:include page="common/cabecalhoMenu.jsp"></jsp:include>
+<style>
+	.textbody{
+		font-size: 24px;
+	}
+</style>
 
 <% 	if (request.getParameter("controleCerveja") != null) { %>
 	<jsp:include page="common/cabecalhoCervejas.jsp"></jsp:include>
 <% } %>
 
-<div class="container pt50 pb10 fundoHome">
-	<div class="alert alert-success">
-		<strong>Estabelecimento cadastrado com sucesso!</strong>
-	</div>
+<div class="container pb10 fundoHome" style="padding-top: 20px;">
 	<img src="estaticos/imagens/hommer.ico" />
-	<div>
-		Aqui é Body Builder Ipsum PORRA! Aqui nóis constrói fibra, não é água com músculo. É esse que a gente quer, é ele que nóis vamo buscar. Sabe o que é isso daí? Trapézio descendente é o nome disso aí. Negativa Bambam negativa. AHHHHHHHHHHHHHHHHHHHHHH..., porra! É 37 anos caralho!
-		
-		Sabe o que é isso daí? Trapézio descendente é o nome disso aí. É 13 porra! É 37 anos caralho! Vamo monstro! É nóis caraio é trapezera buscando caraio! Eita porra!, tá saindo da jaula o monstro!
-		
-		Aqui é bodybuilder porra! Que não vai dá rapaiz, não vai dá essa porra. Boraaa, Hora do Show Porra. É verão o ano todo vem cumpadi. Vamo monstro! Eu quero esse 13 daqui a pouquinho aí.
-		
-		Sabe o que é isso daí? Trapézio descendente é o nome disso aí. Ajuda o maluco que tá doente. É 37 anos caralho! É verão o ano todo vem cumpadi. Bora caralho, você quer ver essa porra velho. Sai filho da puta!
-		
-		Sai filho da puta! Boraaa, Hora do Show Porra. É 13 porra! É esse que a gente quer, é ele que nóis vamo buscar. Aqui nóis constrói fibra, não é água com músculo. Vai subir árvore é o caralho porra!
+	<div class="title">
+		<strong><%=request.getAttribute("nomeEstabelecimento") %> cadastrado com sucesso!</strong>
+	</div>
+	
+	<div id="info" class="textbody" style="padding-left: 200px;padding-right: 200px;text-align: center;">
+		Parabéns, seu estabelecimento foi cadastrado no sistema.
+		Agora vamos adicionar as cervejas e seus respectivos preços que irão ser comercializadas no <%=request.getAttribute("nomeEstabelecimento") %>.
 	</div>	
-	<form id="gerenciarEstabelecimentoForm" name="gerenciarEstabelecimentoForm" action="gerenciarEstabelecimento.do">
+	
+	<form id="gerenciarEstabelecimentoForm" name="gerenciarEstabelecimentoForm" action="gerenciarEstabelecimento.do" style="margin-top: 20px;">
 		<input type='hidden' name="controleMenu" id="controleMenu" value="gerenciarEstabelecimento"/>
 		<button id="btnConfirma" name="btnConfirma" class="btn btn-warning btn-lg">Cadastrar Cervejas Agora !</button>
 	</form>	

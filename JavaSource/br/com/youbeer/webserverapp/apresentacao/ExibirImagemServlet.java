@@ -1,12 +1,15 @@
 package br.com.youbeer.webserverapp.apresentacao;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 
 import br.com.youbeer.webserverapp.service.IYoubeerService;
 import br.com.youbeer.webserverapp.service.YoubeerServiceImpl;
@@ -66,10 +69,15 @@ public class ExibirImagemServlet extends HttpServlet {
 		// Faz a consulta ao banco
 		byte[] imagemStream = service.recuperarFotosEstabelecimento(codigoEstabelecimento, campoFoto);
 		
+		// Tratamento para estabelecimento sem imagens
+		if (imagemStream == null) {
+			InputStream stream  = this.getServletContext().getResourceAsStream("/estaticos/imagens/bar_exemplo.jpg");
+			imagemStream = IOUtils.toByteArray(stream);	 
+		}
+		
 		// Obtém output 
 		OutputStream out = response.getOutputStream(); 
-		out.write(imagemStream);  
+		out.write(imagemStream); 
         out.flush();  		
 	}
-
 }

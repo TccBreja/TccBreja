@@ -49,6 +49,10 @@ public class SalvarListaCervejaEstabelecimentoAction extends ActionBase{
 			service.inserirCervejaEstabelecimento(estabelecimento, cerveja);
 		}
 		
+		// Seta nome do estabelecimento no request
+		request.setAttribute("nomeEstabelecimento", estabelecimento.getNomeEstabelecimento());
+		
+		// Retorno
 		return mapping.findForward("sucesso");
 	}
 }

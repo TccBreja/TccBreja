@@ -90,7 +90,7 @@
 	function exibirErros(campoErro, mensagem, estilo){			
 		$(campoErro).addClass(estilo);
 		$(campoErro).siblings().addClass(estilo);
-		$("#mensagemErro").text(mensagem);
+		$("#mensagemErro").find('span').text(mensagem);
 		$("#mensagemErro").css('display','block');
 	}
 		
@@ -115,31 +115,25 @@
 </script>
 
 <form id="salvarListaCervejaForm" name="salvarListaCervejaForm" action="salvarListaCervejaEstabelecimento.do" method="POST">
-	
- 	
-	
 	<div class="container pb10 fundoHome">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				<div id="boxInvisivel" style="height: 40px; margin-top: 20px;">
-       				<span id="mensagemErro" align="center" style="display: none; color: a94442; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 700"></span>
+				<div id="boxInvisivel" style="height: 40px; margin-top: 20px; margin-bottom: 10px">
+       				<span id="mensagemErro" class="alert alert-danger fade in glyphicon glyphicon-alert" aria-hidden="true" style="position: relative;top: -7px; font-size: 24px; color: rgb(217, 83, 79); padding-top: 5px;padding-bottom: 5px; display: none;">
+       					<span align="center" style="position: relative; top: -4px; left: -8px;color: a94442; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 18px; font-weight: 700;"></span>
+       				</span>	
   				</div>
-			
-				<div class="panel panel-default panel-table">
-					<div class="panel-heading" id="titulo">
-						<div class="row">
-							<div class="col col-xs-12" >
-								<h1 class="panel-title">Lista de Cervejas</h1>
-							</div>
-						</div>
+				<div class="panel panel-default panel-table" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-radius: 10px;">
+					<div id="titulo" style="border-radius: 10px 10px 0px 0px;">
+						<div class="title">Cervejas do <bean:write name="nomeEstabelecimento"/></div>
 					</div>
 					<div class="panel-body">
 						<table class="table table-striped table-bordered table-list">
 							<thead>
 								<tr>
 									<th><em class="fa fa-cog"></em></th>
-									<th class="hidden-xs">Nome - Volume líquido - Tipo</th>
-									<th>Valor R$</th>
+									<th class="hidden-xs" style="padding-left: 14px;">Nome - Tipo - Volume Líquido</th>
+									<th style="padding-left: 14px;">Valor(R$)</th>
 								</tr> 
 							</thead>
 							<tbody id="tratamentoListaAdd">
@@ -203,12 +197,12 @@
 						</table>
 						<div class="col col-xs-1 text-left pt10 pb10">
 							<button type="button" class="btn btn-success" id="adicionarCerveja">
-								<p>Adicionar Cerveja</p>
+								<p style="margin-bottom: 0px;">Adicionar Cerveja</p>
 							</button>
 						</div>	
 						<div class="col col-xs-1 text-left pt10 pb10" style="float: right;">
 							<button type="button" class="btn btn-success" id="btnSalvar" onclick="submitForm();" style="width: 138px; float: right;">
-								<p>Salvar</p>
+								<p style="margin-bottom: 0px;">Salvar</p>
 							</button>
 						</div>
 					</div>
@@ -219,6 +213,7 @@
 	<input type="hidden" id="index" name="index" value="<%=index%>">
 	<input type='hidden' name="codigoEstabelecimento" value="<%=request.getParameter("codigoEstabelecimento")%>" />
 	<input type='hidden' name="controleMenu" value="gerenciarEstabelecimento" />
+	<input type='hidden' name="controleCerveja" id="controleCerveja" value="cadastrarCervejas"/>
 </form>
 
 <script>
