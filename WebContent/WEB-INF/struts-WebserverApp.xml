@@ -11,7 +11,8 @@
 
 	<!-- Global Forwards -->
 	<global-forwards>
-    </global-forwards>
+			<forward name="erro" path="erro" />
+	</global-forwards>
 
 	<!-- Action Mappings -->
 	<action-mappings>

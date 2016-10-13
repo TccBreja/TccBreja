@@ -18,7 +18,14 @@
 	    	resultado = verificarCampos(nome, sobrenome, email, telefone, mensagem);
     		
 	    	if(resultado){
-	    		enviarEmail(nome.val(), sobrenome.val(), email.val(), telefone.val(), mensagem.val());
+	    		var width =  $('#mensagemInfo').css('width');
+	    			height = $('#mensagemInfo').css('height');
+	    			varTop = height.substring(0,3)/2;
+	    			varHtml = "<div style='height:" + height + ";'><i class='fa fa-circle-o-notch fa-spin'" 
+	    					  + "style='font-size:48px; position: relative; top:150px;'></i></div>";
+	    				
+	    		$('#mensagemInfo').html(varHtml);
+	    		setTimeout(enviarEmail(nome.val(), sobrenome.val(), email.val(), telefone.val(), mensagem.val()),200000);
 	    	}
 	    	
 	    	return resultado;  	
@@ -128,14 +135,16 @@
        	 		 'mensagem='+mensagem,
 		      dataType: 'json',
 		      success: function(data){
-		    	  if(data.retorno == "sucesso"){
-		    		  $('#mensagem').html("<div class='title'>Mensagem enviada com sucesso</div>");
+		    	  if(data.retorno == "sucesso"){	  
+		    		  $('#mensagemInfo').html("<img src='estaticos/imagens/hommer.ico'/><div class='title'>"
+		    			+ "<strong>Mensagem enviada com sucesso!</strong></div>"
+		    			+ "<div id='info' class='textbody' style='font-size: 24px;padding-left: 200px;padding-right: 200px;text-align: center;'>"
+		    			+ "Iremos analisar a mensagem e responderemos assim que possível.</div>");
 		    	  } else {
-		    		  $('#mensagem').html("<span id='ensagemErro' class='alert alert-danger fade in glyphicon glyphicon-remove' aria-hidden='true'"
-		    		  +	"style='position: relative;top: -7px; font-size: 24px; color: rgb(217, 83, 79); padding-top: 5px;padding-bottom: 5px;'>"
-		    		  + "<span align='center' style='margin-left: 20px; position: relative; top: -4px; left: -8px;color: a94442;" 
-		    		  + "font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 18px; font-weight: 700;'>"
-		    		  + "Erro ao enviar a mensagem, recarregue a página e tente novamente</span></span>"); 	
+		    		  $('#mensagemInfo').html("<img src='estaticos/imagens/homer-doh.png' style='width: 25%;'/><div class='title erroCor'>"
+		    			+ "<strong>Erro ao enviar o e-mail!</strong></div>"
+		    			+ "<div id='info' class='textbody' style='font-size: 24px;padding-left: 200px;padding-right: 200px;text-align: center;'>"
+		    			+ "Ocorreu um erro em nosso servidor, recarregue a página e tente novamente.</div>");   		
 		    	  }
 		      },
 		      error: function(jqXHR, textStatus, errorThrown){
@@ -169,7 +178,15 @@
    
    .erro {border-color: a94442; box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px red }
    
-   .erroCor {color: #a94442;}     
+   .erroCor {color: #a94442;}
+   
+   .centro {
+		position: absolute;
+		top: 0; bottom: 0;
+		left: 0; right: 0;
+		margin: auto;
+	}
+	     
 </style>
 
 <div class="container pt50 pb10 fundoHome">

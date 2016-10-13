@@ -13,10 +13,15 @@ public abstract class ActionBase extends Action {
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		ActionForward retorno;
-		retorno = executar(mapping, form, request, response);
 		
-		return retorno;
-		
+		try {
+			retorno = executar(mapping, form, request, response);
+		} catch (Exception exception) {
+			
+			retorno = mapping.findForward("erro");
+		}
+
+		return retorno;		
 	}
 	
 	protected abstract ActionForward executar(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response);
