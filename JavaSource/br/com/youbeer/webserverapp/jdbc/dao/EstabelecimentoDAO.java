@@ -396,5 +396,30 @@ public class EstabelecimentoDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
+	/**
+	 * Atualiza o total de cervejas do estabelecimento
+	 * @param totalCerveja <tt>int</tt>.
+	 */
+	public void atualizarQuantidadeCerveja(int totalCerveja, int codigoEstabelecimento) {
+		
+		String sql = "UPDATE estabelecimento "
+						+ "SET quantidadeCerveja = ? "
+						+ "WHERE cod_estabelecimento = ?";
+		PreparedStatement stmt;
+		
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, totalCerveja);
+			stmt.setInt(2, codigoEstabelecimento);
+			stmt.execute();
+			stmt.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+			
+	}
 
 }

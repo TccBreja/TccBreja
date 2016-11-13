@@ -31,6 +31,8 @@ public class SalvarListaCervejaEstabelecimentoAction extends ActionBase{
 		
 		// Obtém a nova lista de cerveja pelo request 
 		int index = Integer.parseInt(request.getParameter("index"));
+		int quantidadeCervejas = 0;
+		
 		for (int i=1; i<=index; i++) {
 			
 			// Obtém os dados do request
@@ -47,7 +49,13 @@ public class SalvarListaCervejaEstabelecimentoAction extends ActionBase{
 			
 			// Adiciona a cerveja ao cadastro do estabelecimento no banco
 			service.inserirCervejaEstabelecimento(estabelecimento, cerveja);
+			
+			// Atualiza o total de cervejas
+			quantidadeCervejas++;
 		}
+		
+		// Atualiza a quantidade de cerveja do estabelecimento
+		service.atualizarQuantidadeCervejaEstabelecimento(quantidadeCervejas, codigoEstabelecimento);
 		
 		// Seta nome do estabelecimento no request
 		request.setAttribute("nomeEstabelecimento", estabelecimento.getNomeEstabelecimento());

@@ -117,5 +117,16 @@ public interface IYoubeerService {
 	 * @return array de bites da imagem buscado <tt>byte[]</tt> 
 	 */ 
 	public byte[] recuperarFotosEstabelecimento(int codigoEstabelecimento, String campoFoto);
+	
+	/**
+	 * Atualiza o total de cervejas do estabelecimento
+	 * @param totalCerveja <tt>int</tt>.
+	 */
+	public void atualizarQuantidadeCervejaEstabelecimento(int totalCerveja, int codigoEstabelecimento);
+	
+	/**
+	 * Cadastra a breja no banco
+	 */
+	public void cadastrarCervejaBanco(Cerveja cerveja, FileItem item);
 		
 }

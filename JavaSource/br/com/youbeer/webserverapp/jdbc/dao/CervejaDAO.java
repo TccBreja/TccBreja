@@ -1,11 +1,14 @@
 package br.com.youbeer.webserverapp.jdbc.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.fileupload.FileItem;
 
 import br.com.youbeer.webserverapp.jdbc.ConnectionFactory;
 import br.com.youbeer.webserverapp.modelo.Cerveja;
@@ -143,5 +146,29 @@ public class CervejaDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void cadastrarCervejaBanco(Cerveja cerveja, FileItem item) {
+		String sql = "INSERT INTO cerveja (nome_cerveja, descricao_cerveja, tipo_cerveja, teor_alcool, volume_liquido, foto_cerveja) "
+						+ "VALUES (?,?,?,?,?,?) ";	
+		PreparedStatement stmt;
+		
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, cerveja.getNomeCerveja());
+			stmt.setString(2, cerveja.getDescricao());
+			stmt.setString(3, cerveja.getTipo());
+			stmt.setString(4, cerveja.getTeorAlcool());
+			stmt.setInt(5, Integer.parseInt(cerveja.getVolumeLiquido()));
+			stmt.setBinaryStream(6, item.getInputStream(),(int) item.getSize());
+			stmt.execute();
+			stmt.close();
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}  catch (IOException e) {
+			throw new RuntimeException(e);
+		}	
+		
 	}
 }

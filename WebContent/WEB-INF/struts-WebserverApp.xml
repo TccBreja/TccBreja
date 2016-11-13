@@ -105,6 +105,16 @@
                 validate="false">
             <forward name="sucesso" path="atualizarEstabelecimento" />
         </action>
+        
+         <!-- Action cadastrar cervejas -->
+    	<action path="/cadastrarCervejasBanco"
+                type="br.com.youbeer.webserverapp.append.beer.CadastrarCervejaBancoAction"
+                name="HomeAction"
+                scope="request"
+                validate="false">
+            <forward name="sucesso" path="cadastrarCervejasBanco" />
+        </action>
+        
 	</action-mappings>
     <message-resources parameter="resources.application" null="true"/>
     		

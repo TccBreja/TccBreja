@@ -211,6 +211,17 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 	}
 	
 	/**
+	 * Cadastra a breja no banco
+	 */
+	public void cadastrarCervejaBanco(Cerveja cerveja, FileItem item) {
+		
+		/** Instância do CervejaDAO */
+		CervejaDAO cervejaDAO = new CervejaDAO();
+		
+		cervejaDAO.cadastrarCervejaBanco(cerveja, item);	
+	}
+	
+	/**
 	 * Recupera as fotos de um estabelecimento do banco
 	 * @param codigoEstabelecimento <tt>int</tt>.
 	 * @return array de bites da imagem buscado <tt>byte[]</tt> 
@@ -224,5 +235,17 @@ public class YoubeerServiceImpl implements IYoubeerService  {
 		
 	}
 	
+	/**
+	 * Atualiza o total de cervejas do estabelecimento
+	 * @param totalCerveja <tt>int</tt>.
+	 */
+	public void atualizarQuantidadeCervejaEstabelecimento(int totalCerveja, int codigoEstabelecimento){
+		
+		/** Instância do EstabelecimentoDAO */
+		EstabelecimentoDAO estabelecimentoDAO = new EstabelecimentoDAO();
+		
+		estabelecimentoDAO.atualizarQuantidadeCerveja(totalCerveja, codigoEstabelecimento);
+		
+	}
 	
 }

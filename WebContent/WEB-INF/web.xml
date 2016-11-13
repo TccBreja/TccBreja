@@ -10,6 +10,7 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>/axis2-web/index.jsp</welcome-file>
 	</welcome-file-list>
 	
 	<servlet>
@@ -53,6 +54,13 @@
    </servlet>
    
    <servlet>
+	   <servlet-name>CadastrarCervejaBancoServlet</servlet-name>
+	   <servlet-class>br.com.youbeer.webserverapp.append.beer.CadastrarCervejaBancoServlet</servlet-class>
+	   <load-on-startup>5</load-on-startup>
+   </servlet>
+   
+   
+   <servlet>
 	   <servlet-name>ExcluirEstabelecimentoServlet</servlet-name>
 	   <servlet-class>br.com.youbeer.webserverapp.apresentacao.ExcluirEstabelecimentoServlet</servlet-class>
 	   <load-on-startup>5</load-on-startup>
@@ -63,6 +71,11 @@
 	   <servlet-class>br.com.youbeer.webserverapp.apresentacao.EnviarEmailServlet</servlet-class>
 	   <load-on-startup>5</load-on-startup>
    </servlet>
+    <servlet>
+    	<display-name>Apache-Axis Servlet</display-name>
+    	<servlet-name>AxisServlet</servlet-name>
+    	<servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
+    </servlet>
    
    <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
@@ -89,6 +102,11 @@
       <url-pattern>/EnviarEmailServlet</url-pattern>
    </servlet-mapping>
    
+      <servlet-mapping>
+      <servlet-name>CadastrarCervejaBancoServlet</servlet-name>
+      <url-pattern>/CadastrarCervejaBancoServlet</url-pattern>
+   </servlet-mapping>
+
    <servlet-mapping>
      <servlet-name>action</servlet-name>
      <url-pattern>*.do</url-pattern>

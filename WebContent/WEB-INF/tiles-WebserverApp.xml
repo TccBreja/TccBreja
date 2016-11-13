@@ -68,6 +68,11 @@
 		<put name="body" value="/WEB-INF/jsp/listaAtualizadaSucesso.jsp"/>
     </definition>
     
+    <!--Chamada da view de cadastrar Cervejas Banco -->
+    <definition name="cadastrarCervejasBanco" extends="wpp.main">
+		<put name="body" value="/WEB-INF/jsp/append/cadastrarCervejasBanco.jsp"/>
+    </definition>
+    
      <!--Chamada da view de lista de Cervejas do estabelecimentoS atualizada  -->
     <definition name="erro" extends="wpp.main">
 		<put name="body" value="/WEB-INF/jsp/erro.jsp"/>
